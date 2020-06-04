@@ -9,8 +9,10 @@
 </head>
 <script type="text/javascript">
 
-	$j(document).ready(function(){
-	});
+$j(document).ready(function(){
+
+});
+
 
 </script>
 <body>
@@ -45,12 +47,6 @@
 						<td>
 							<a href = "/board/${list.boardType}/${list.boardNum}/boardView.do?pageNo=${pageNo}">${list.boardTitle}</a>
 						</td>
-						<td align="center">
-							<input id="submit" type="button" value="수정">
-						</td>
-						<td align="center">
-							<input id="submit" type="button" value="삭제">
-						</td>
 					</tr>	
 				</c:forEach>
 			</table>
@@ -60,7 +56,9 @@
 		<td align="right">
 			<a href ="/board/boardWrite.do">글쓰기</a>
 		</td>
+
 	</tr>
 </table>	
 </body>
 </html>
+

@@ -1,17 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@include file="/WEB-INF/views/common/common.jsp"%>    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>boardView</title>
 </head>
+<script>
+$j(document).ready(function(){
+	$j(function() {
+		  $(".movie_list").on("click", function() {
+		    var href=$(this).data("href");
+		    location.href = href;
+		  });
+		});
+}
+
+</script>
 <body>
-<table align="center">
+<table align="center" style="border:1px solid gray">
 	<tr>
 		<td>
-			<table border ="1">
+			<table border ="1"  style="border:none">
 				<tr>
 					<td width="120" align="center">
 					Title
@@ -35,14 +46,18 @@
 					<td>
 					</td>
 				</tr>
+				<tr>
+				<td align="center" colspan="2" style="clear:both; border:none">
+					<button style="float:left"  onclick="location.href='/board/boardList.do'" type="button">목록</button>
+					<button style="float:right" onclick="location.href='/board/boardList.do'" type="button">수정</button>
+					<button style="float:right;" onclick="location.href='board/boardDelete.do?boardNum='+${boardNum}" type="button">삭제</button>
+				</td>
+				</tr>
 			</table>
-		</td>
+		</td>	
 	</tr>
-	<tr>
-		<td align="right">
-			<a href="/board/boardList.do">List</a>
-		</td>
-	</tr>
+
 </table>	
+
 </body>
 </html>

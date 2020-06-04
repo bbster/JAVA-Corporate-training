@@ -35,7 +35,7 @@ public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@RequestMapping(value = "/board/boardList.do", method = RequestMethod.GET)
-	public String boardList(Locale locale, Model model,PageVo pageVo) throws Exception{
+	public String boardList(Locale locale, PageVo pageVo, Model model) throws Exception{
 		
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
 		
@@ -97,4 +97,9 @@ public class BoardController {
 		return callbackMsg;
 	}
 	
+	@RequestMapping(value = "board/boardDelete.do", method = RequestMethod.POST)
+	public String boardDelete(int boardNum) throws Exception{
+		return "redirect:/boardList";
+		
+	}
 }

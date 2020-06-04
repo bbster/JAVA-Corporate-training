@@ -2,9 +2,9 @@ package com.spring.board.vo;
 
 public class PageVo {
 	
-	private int pageNo = 0;
+	private Integer pageNo = 0;
 
-	public int getPageNo() {
+	public Integer getPageNo() {
 		return pageNo;
 	}
 
