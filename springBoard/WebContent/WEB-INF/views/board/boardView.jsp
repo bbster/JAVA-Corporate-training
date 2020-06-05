@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/common/common.jsp"%>    
 <!DOCTYPE html>
 <html>
@@ -19,6 +19,7 @@ $j(document).ready(function(){
 
 </script>
 <body>
+<form action="/board/${boardType}/${boardNum}/boardUpdate.do" method="POST">
 <table align="center" style="border:1px solid gray">
 	<tr>
 		<td>
@@ -49,9 +50,9 @@ $j(document).ready(function(){
 				</tr>
 				<tr>
 				<td align="center" colspan="2" style="clear:both; border:none">
-					<button style="float:left"  onclick="location.href='/board/boardList.do'" type="button">∏Ò∑œ</button>
-					<button style="float:right;" onclick="location.href='/board/boardDelete.do?boardNum='+${boardNum}" type="button">ªË¡¶</button>
-					<button style="float:right" onclick="location.href='/board/boardUpdate.do'" type="button">ºˆ¡§</button>
+					<button style="float:left"  onclick="location.href='/board/boardList.do'" type="button">Î™©Î°ù</button>
+					<button style="float:right;" onclick="location.href='/board/boardDelete.do?boardNum='+${boardNum}" type="button">ÏÇ≠Ï†ú</button>
+					<input type="submit" value="ÏàòÏ†ï" style="float:right;"/>
 				</td>
 				</tr>
 			</table>
@@ -59,6 +60,6 @@ $j(document).ready(function(){
 	</tr>
 
 </table>	
-
+</form>
 </body>
 </html>

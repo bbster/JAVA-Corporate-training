@@ -53,6 +53,7 @@ public class boardServiceImpl implements boardService{
 
 	@Override
 	public int boardUpdate(BoardVo boardVo) throws Exception {
+		System.out.println(boardVo+"boardServiceImplement ·Î±×");
 		return boardDao.boardUpdate(boardVo);
 	}
 

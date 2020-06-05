@@ -10,6 +10,13 @@ public class BoardVo {
 	private String	modifier;
 	private int totalCnt;
 	
+	public BoardVo() {}
+	
+	public BoardVo(String boardTitle, String boardComment) {
+		this.boardTitle = boardTitle;
+		this.boardComment = boardComment;
+	}
+	
 	
 	public int getTotalCnt() {
 		return totalCnt;

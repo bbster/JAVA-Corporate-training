@@ -76,11 +76,12 @@
         )
     </select>
     
-    <select id="boardUpdate" parameterType="String">
+    <select id="boardUpdate" parameterType="com.spring.board.vo.BoardVo">
     	UPDATE BOARD
 		SET
 			BOARD_TITLE 	= #{boardTitle}
 			,BOARD_COMMENT	= #{boardComment}
+       		,MODIFIED_TIME  = TO_CHAR(SYSDATE)
     	WHERE 	BOARD_TYPE = #{boardType}
     	AND 	BOARD_NUM  = #{boardNum}
     </select>

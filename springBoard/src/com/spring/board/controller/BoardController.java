@@ -103,9 +103,9 @@ public class BoardController {
 		return "redirect:boardList.do";
 	}
 	
-	@RequestMapping(value = "/board/boardUpdate", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardUpdate", method = RequestMethod.POST)
 	public String boardUpdate(BoardVo boardVo, Model model) throws Exception{
 		boardService.boardUpdate(boardVo);
-		return "redirect:/{boardType}/{boardNum}/boardView.do";
+		return "redirect:/board/boardList.do";
 	}
 }
