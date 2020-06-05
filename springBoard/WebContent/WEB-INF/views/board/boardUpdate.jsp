@@ -19,10 +19,12 @@ $j(document).ready(function(){
 
 </script>
 <body>
+
 <table align="center" style="border:1px solid gray">
 	<tr>
 		<td>
 			<table border ="1"  style="border:none">
+			<form method="POST" action="/board/${boardType}/${boardNum}/boardUpdate.do?">
 				<tr>
 					<td width="120" align="center">
 					Title
@@ -41,7 +43,7 @@ $j(document).ready(function(){
 				</tr>
 				<tr>
 					<td align="center">
-					Writter
+					Writer
 					</td>
 					<td>
 					${board.creator}
@@ -49,11 +51,11 @@ $j(document).ready(function(){
 				</tr>
 				<tr>
 				<td align="center" colspan="2" style="clear:both; border:none">
-					<button style="float:left"  onclick="location.href='/board/boardList.do'" type="button">목록</button>
-					<button style="float:right;" onclick="location.href='/board/boardDelete.do?boardNum='+${boardNum}" type="button">삭제</button>
-					<button style="float:right" onclick="location.href='/board/'+${boardType}+'/'+${boardNum}+'/boardUpdate.do?'" type="button">수정</button>
+					<button style="float:right" onclick="location.href='/board/'+${boardType}+'/'+${boardNum}+'/boardUpdate.do" type="button">수정</button>
+					<button style="float:left"  onclick="location.href='/board/'+${boardType}+'/'+${boardNum}+'/boardView.do'" type="button">취소</button>
 				</td>
 				</tr>
+				</form>
 			</table>
 		</td>	
 	</tr>

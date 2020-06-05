@@ -78,7 +78,7 @@
     
     <select id="boardUpdate" parameterType="com.spring.board.vo.BoardVo">
     	UPDATE 
-    		        BOARD
+		BOARD
         (BOARD_TYPE
         ,BOARD_NUM
         ,BOARD_TITLE
@@ -86,12 +86,13 @@
         ,MODIFIER
         ,MODIFIED_TIME
         ) 
-    	WHERE  BOARD_NUM = #{BOARD_NUM}
+    	WHERE BOARD_TYPE = #{BOARD_TYPE}
+    	AND   BOARD_NUM = #{BOARD_NUM}
     </select>
     
     <select id="boardDelete" parameterType="java.lang.Integer">
     	DELETE 
-    		BOARD 
-    	WHERE  BOARD_NUM = #{BOARD_NUM}
+    	BOARD 
+    	WHERE   BOARD_NUM = #{BOARD_NUM}
     </select>
 </mapper>
