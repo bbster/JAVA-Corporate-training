@@ -76,18 +76,13 @@
         )
     </select>
     
-    <select id="boardUpdate" parameterType="com.spring.board.vo.BoardVo">
-    	UPDATE 
-		BOARD
-        (BOARD_TYPE
-        ,BOARD_NUM
-        ,BOARD_TITLE
-        ,BOARD_COMMENT
-        ,MODIFIER
-        ,MODIFIED_TIME
-        ) 
-    	WHERE BOARD_TYPE = #{BOARD_TYPE}
-    	AND   BOARD_NUM = #{BOARD_NUM}
+    <select id="boardUpdate" parameterType="String">
+    	UPDATE BOARD
+		SET
+			BOARD_TITLE 	= #{boardTitle}
+			,BOARD_COMMENT	= #{boardComment}
+    	WHERE 	BOARD_TYPE = #{boardType}
+    	AND 	BOARD_NUM  = #{boardNum}
     </select>
     
     <select id="boardDelete" parameterType="java.lang.Integer">

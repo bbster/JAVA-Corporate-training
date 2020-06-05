@@ -56,6 +56,4 @@ public class boardServiceImpl implements boardService{
 		return boardDao.boardUpdate(boardVo);
 	}
 
-	
-
 }

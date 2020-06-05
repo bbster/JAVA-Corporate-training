@@ -97,23 +97,15 @@ public class BoardController {
 		return callbackMsg;
 	}
 	
-	@RequestMapping(value = "board/boardDelete", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/boardDelete", method = RequestMethod.GET)
 	public String boardDelete(@RequestParam("boardNum")int boardNum, Model model) throws Exception{
 		boardService.boardDelete(boardNum);
 		return "redirect:boardList.do";
 	}
 	
-	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardUpdate.do", method = RequestMethod.GET)
-	public String boardUpdate(Locale locale, Model model
-			,@PathVariable("boardType")String boardType
-			,@PathVariable("boardNum")int boardNum) throws Exception{
-		
-		BoardVo boardVo = new BoardVo();
-		model.addAttribute("boardType", boardType);
-		model.addAttribute("boardNum", boardNum);
-		model.addAttribute("board", boardVo);
-		
+	@RequestMapping(value = "/board/boardUpdate", method = RequestMethod.GET)
+	public String boardUpdate(BoardVo boardVo, Model model) throws Exception{
 		boardService.boardUpdate(boardVo);
-		return "redirect:boardView.do";
-}
+		return "redirect:/{boardType}/{boardNum}/boardView.do";
+	}
 }

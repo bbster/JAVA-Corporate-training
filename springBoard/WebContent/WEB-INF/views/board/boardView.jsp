@@ -28,7 +28,7 @@ $j(document).ready(function(){
 					Title
 					</td>
 					<td width="400">
-					${board.boardTitle}
+						<input name="boardTitle" type="text" value="${board.boardTitle}" />
 					</td>
 				</tr>
 				<tr>
@@ -36,12 +36,12 @@ $j(document).ready(function(){
 					Comment
 					</td>
 					<td>
-					${board.boardComment}
+					<input name="boardComment" type="text" value="${board.boardComment}" />
 					</td>
 				</tr>
 				<tr>
 					<td align="center">
-					Writter
+					Writer
 					</td>
 					<td>
 					${board.creator}
@@ -51,7 +51,7 @@ $j(document).ready(function(){
 				<td align="center" colspan="2" style="clear:both; border:none">
 					<button style="float:left"  onclick="location.href='/board/boardList.do'" type="button">목록</button>
 					<button style="float:right;" onclick="location.href='/board/boardDelete.do?boardNum='+${boardNum}" type="button">삭제</button>
-					<button style="float:right" onclick="location.href='/board/'+${boardType}+'/'+${boardNum}+'/boardUpdate.do?'" type="button">수정</button>
+					<button style="float:right" onclick="location.href='/board/boardUpdate.do'" type="button">수정</button>
 				</td>
 				</tr>
 			</table>
