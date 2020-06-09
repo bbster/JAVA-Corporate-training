@@ -73,15 +73,13 @@ public class BoardController {
 		
 		BoardVo boardVo = new BoardVo();
 		
-		if(boardVo.equals(null)){
+		if(boardService.selectBoard(boardType,boardNum) == null){
 			redirectAttributes.addFlashAttribute("msg", "존재하지 않는 게시글입니다.");
 			return "redirect:/board/boardList.do";
 		}
 		
 		else {
 			boardVo = boardService.selectBoard(boardType,boardNum);
-			System.out.print(boardVo.getBoardNum()+" 상세 페이지 불러오는 부분 데이터 체크");
-			
 			model.addAttribute("boardType", boardType);
 			model.addAttribute("boardNum", boardNum);
 			model.addAttribute("board", boardVo);

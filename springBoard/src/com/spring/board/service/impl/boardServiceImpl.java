@@ -35,6 +35,9 @@ public class boardServiceImpl implements boardService{
 	public BoardVo selectBoard(String boardType, int boardNum) throws Exception {
 		BoardVo boardVo = new BoardVo();
 		
+		System.out.println(boardVo.getBoardType()+" ServiceImpl_BoardView_boardType");
+		System.out.println(boardVo.getBoardNum()+" ServiceImpl_BoardView_boardNum");
+		
 		boardVo.setBoardType(boardType);
 		boardVo.setBoardNum(boardNum);
 		
