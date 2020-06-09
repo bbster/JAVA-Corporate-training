@@ -45,15 +45,16 @@ public class boardServiceImpl implements boardService{
 	public int boardInsert(BoardVo boardVo) throws Exception {
 		return boardDao.boardInsert(boardVo);
 	}
-
+	
+	
 	@Override
 	public int boardDelete(int boardNum) throws Exception{
 		return boardDao.boardDelete(boardNum);
 	}
-
+	
+	
 	@Override
 	public int boardUpdate(BoardVo boardVo) throws Exception {
-		System.out.println(boardVo+"boardServiceImplement ·Î±×");
 		return boardDao.boardUpdate(boardVo);
 	}
 

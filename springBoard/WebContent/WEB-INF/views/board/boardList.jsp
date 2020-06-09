@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="UTF-8"%>
+    pageEncoding="EUC-KR"%>
 <%@include file="/WEB-INF/views/common/common.jsp"%>
+<%request.setCharacterEncoding("euc-kr"); %>
+<%String path = request.getContextPath();%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,6 +10,10 @@
 <title>list</title>
 </head>
 <script type="text/javascript">
+var message = "${msg}";
+if(message){
+	alert(message);
+};
 
 $j(document).ready(function(){
 
@@ -54,7 +60,7 @@ $j(document).ready(function(){
 	</tr>
 	<tr>
 		<td align="right">
-			<a href ="/board/boardWrite.do">ê¸€ì“°ê¸°</a>
+			<a href ="/board/boardWrite.do">±Û¾²±â</a>
 		</td>
 
 	</tr>

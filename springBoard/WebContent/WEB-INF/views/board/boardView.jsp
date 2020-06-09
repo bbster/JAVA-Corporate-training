@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/common/common.jsp"%>    
+    pageEncoding="EUC-KR"%>
+<%@include file="/WEB-INF/views/common/common.jsp"%> 
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +9,19 @@
 <title>boardView</title>
 </head>
 <script>
+var message = "${msg}";
+if(message){
+	alert(message);
+};
 $j(document).ready(function(){
+
+	
 	$j(function() {
-		  $(".movie_list").on("click", function() {
-		    var href=$(this).data("href");
-		    location.href = href;
+	  	$(".movie_list").on("click", function() {
+	    	var href=$(this).data("href");
+	    	location.href = href;
 		  });
-		});
+	});
 }
 
 </script>
@@ -50,9 +57,9 @@ $j(document).ready(function(){
 				</tr>
 				<tr>
 				<td align="center" colspan="2" style="clear:both; border:none">
-					<button style="float:left"  onclick="location.href='/board/boardList.do'" type="button">Î™©Î°ù</button>
-					<button style="float:right;" onclick="location.href='/board/boardDelete.do?boardNum='+${boardNum}" type="button">ÏÇ≠Ï†ú</button>
-					<input type="submit" value="ÏàòÏ†ï" style="float:right;"/>
+					<button style="float:left"  onclick="location.href='/board/boardList.do'" type="button">∏Ò∑œ</button>
+					<button style="float:right;" onclick="location.href='/board/boardDelete.do?boardNum='+${boardNum}" type="button">ªË¡¶</button>
+					<input type="submit" value="ºˆ¡§" style="float:right;"/>
 				</td>
 				</tr>
 			</table>

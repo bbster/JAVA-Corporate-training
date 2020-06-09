@@ -1,30 +1,39 @@
 package com.spring.board.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.lang.*;
 
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.board.HomeController;
 import com.spring.board.service.boardService;
 import com.spring.board.vo.BoardVo;
 import com.spring.board.vo.PageVo;
 import com.spring.common.CommonUtil;
+
+import sun.invoke.empty.Empty;
 
 @Controller
 public class BoardController {
@@ -59,18 +68,26 @@ public class BoardController {
 	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardView.do", method = RequestMethod.GET)
 	public String boardView(Locale locale, Model model
 			,@PathVariable("boardType")String boardType
-			,@PathVariable("boardNum")int boardNum) throws Exception{
+			,@PathVariable("boardNum")int boardNum,
+			RedirectAttributes redirectAttributes) throws Exception{
 		
 		BoardVo boardVo = new BoardVo();
 		
+		if(boardVo.equals(null)){
+			redirectAttributes.addFlashAttribute("msg", "존재하지 않는 게시글입니다.");
+			return "redirect:/board/boardList.do";
+		}
 		
-		boardVo = boardService.selectBoard(boardType,boardNum);
-		
-		model.addAttribute("boardType", boardType);
-		model.addAttribute("boardNum", boardNum);
-		model.addAttribute("board", boardVo);
-		
-		return "board/boardView";
+		else {
+			boardVo = boardService.selectBoard(boardType,boardNum);
+			System.out.print(boardVo.getBoardNum()+" 상세 페이지 불러오는 부분 데이터 체크");
+			
+			model.addAttribute("boardType", boardType);
+			model.addAttribute("boardNum", boardNum);
+			model.addAttribute("board", boardVo);
+			
+			return "board/boardView";
+		}
 	}
 	
 	@RequestMapping(value = "/board/boardWrite.do", method = RequestMethod.GET)
@@ -97,15 +114,31 @@ public class BoardController {
 		return callbackMsg;
 	}
 	
-	@RequestMapping(value = "/board/boardDelete", method = RequestMethod.GET)
-	public String boardDelete(@RequestParam("boardNum")int boardNum, Model model) throws Exception{
-		boardService.boardDelete(boardNum);
-		return "redirect:boardList.do";
+	@RequestMapping(value = "/board/boardDelete", method = RequestMethod.GET) 
+	public String boardDelete(@RequestParam("boardNum")int boardNum, RedirectAttributes redirectAttributes) throws Exception{
+		int status = boardService.boardDelete(boardNum);
+		
+		if(status >= 1) {
+			redirectAttributes.addFlashAttribute("msg", "게시글이 삭제 되었습니다.");
+			return "redirect:/board/boardList.do";
+		}
+	
+		else{
+			redirectAttributes.addFlashAttribute("msg", "존재하지 않는 게시글입니다.");
+			return "redirect:/board/boardList.do";
+		}
 	}
 	
 	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardUpdate", method = RequestMethod.POST)
-	public String boardUpdate(BoardVo boardVo, Model model) throws Exception{
+	public String boardUpdate(BoardVo boardVo, Model model, RedirectAttributes redirectAttributes) throws Exception{
+		int status = boardService.boardUpdate(boardVo);
+		if(status == 0){
+			redirectAttributes.addFlashAttribute("msg", "존재하지 않는 게시글입니다.");
+			return "redirect:/board/boardList.do";
+		}
+	
 		boardService.boardUpdate(boardVo);
+		
 		return "redirect:/board/boardList.do";
 	}
 }
