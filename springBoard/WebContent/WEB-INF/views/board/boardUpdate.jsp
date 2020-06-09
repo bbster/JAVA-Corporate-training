@@ -26,6 +26,7 @@ $j(document).ready(function(){
 
 </script>
 <body>
+<form action="/board/${boardType}/${boardNum}/boardUpdateAction.do" method="POST">
 <table align="center" style="border:1px solid gray">
 	<tr>
 		<td>
@@ -35,15 +36,18 @@ $j(document).ready(function(){
 					Title
 					</td>
 					<td width="400">
-						${board.boardTitle}
+						<input name="boardTitle" type="text" value="${board.boardTitle}" />
 					</td>
+					
+					
+					
 				</tr>
 				<tr>
 					<td height="300" align="center">
 					Comment
 					</td>
 					<td>
-					${board.boardComment}
+					<input name="boardComment" type="text" value="${board.boardComment}" />
 					</td>
 				</tr>
 				<tr>
@@ -57,13 +61,15 @@ $j(document).ready(function(){
 				<tr>
 				<td align="center" colspan="2" style="clear:both; border:none">
 					<button style="float:left"  onclick="location.href='/board/boardList.do'" type="button">목록</button>
-					<button style="float:right;" onclick="location.href='/board/boardDelete.do?boardNum='+${boardNum}" type="button">삭제</button>
-					<button style="float:right;" onclick="location.href='/board/${boardType}/${boardNum}/boardUpdate.do'" type="button">수정</button>
+					<button style="float:right"  onclick="'/board/'+${boardType}+'/'+${boardNum}+'/boardView.do?pageNo='+${pageNo}" type="button">취소</button>
+					<input type="submit" value="수정" style="float:right;"/>
 				</td>
 				</tr>
 			</table>
 		</td>	
 	</tr>
+
 </table>	
+</form>
 </body>
 </html>

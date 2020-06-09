@@ -112,7 +112,7 @@ public class BoardController {
 		return callbackMsg;
 	}
 	
-	@RequestMapping(value = "/board/boardDelete", method = RequestMethod.GET) 
+	@RequestMapping(value = "/board/boardDelete", method = RequestMethod.POST) 
 	public String boardDelete(@RequestParam("boardNum")int boardNum, RedirectAttributes redirectAttributes) throws Exception{
 		int status = boardService.boardDelete(boardNum);
 		
@@ -127,16 +127,26 @@ public class BoardController {
 		}
 	}
 	
-	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardUpdate", method = RequestMethod.POST)
-	public String boardUpdate(BoardVo boardVo, Model model, RedirectAttributes redirectAttributes) throws Exception{
-		int status = boardService.boardUpdate(boardVo);
-		if(status == 0){
-			redirectAttributes.addFlashAttribute("msg", "존재하지 않는 게시글입니다.");
-			return "redirect:/board/boardList.do";
-		}
+	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardUpdate.do", method = RequestMethod.GET)
+	public String boardUpdate(BoardVo boardVo, Model model 
+			,@PathVariable("boardType")String boardType
+			,@PathVariable("boardNum")int boardNum,
+			RedirectAttributes redirectAttributes) throws Exception{
+
+		boardVo = boardService.selectBoard(boardType,boardNum);
+		model.addAttribute("boardType", boardType);
+		model.addAttribute("boardNum", boardNum);
+		model.addAttribute("board", boardVo);
+
+		return "board/boardUpdate";
+	}
 	
+	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardUpdateAction", method = RequestMethod.POST)
+	public String boardUpdateAction(BoardVo boardVo, Model model,
+			RedirectAttributes redirectAttributes) throws Exception{
+
 		boardService.boardUpdate(boardVo);
 		
-		return "redirect:/board/boardList.do";
+		return "redirect:/board/{boardType}/{boardNum}/boardView.do";
 	}
 }
