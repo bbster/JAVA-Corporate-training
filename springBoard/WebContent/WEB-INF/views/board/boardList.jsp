@@ -16,6 +16,16 @@ if(message){
 };
 
 $j(document).ready(function(){
+    $j("#all").click(function(){
+        if($j("#all").prop("checked")){
+            $j("input[name=code_name]").prop("checked",true);
+        }else{
+            $j("input[name=code_name]").prop("checked",false);
+        }
+    })
+});
+
+$j(document).ready(function(){
 
 });
 
@@ -62,9 +72,20 @@ $j(document).ready(function(){
 		<td align="right">
 			<a href ="/board/boardWrite.do">글쓰기</a>
 		</td>
-
+	</tr>
+</table>
+<form action="">
+<table>
+	<tr>
+		<input type='checkbox' id='all' name='all' value='all' />전체
+		<input type='checkbox' id='code_name' name='code_name' value='normal' />일반
+		<input type='checkbox' id='code_name' name='code_name' value='qna' />Q&A
+		<input type='checkbox' id='code_name' name='code_name' value='anonymous' />익명
+		<input type='checkbox' id='code_name' name='code_name' value='free' />자유
+		<input type='submit' value='조회' />
 	</tr>
 </table>	
+</form>
 </body>
 </html>
 
