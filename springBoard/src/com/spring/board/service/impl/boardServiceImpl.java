@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.spring.board.dao.BoardDao;
 import com.spring.board.service.boardService;
 import com.spring.board.vo.BoardVo;
 import com.spring.board.vo.PageVo;
+
 
 @Service
 public class boardServiceImpl implements boardService{
@@ -46,7 +46,13 @@ public class boardServiceImpl implements boardService{
 	
 	@Override
 	public int boardInsert(BoardVo boardVo) throws Exception {
-		return boardDao.boardInsert(boardVo);
+		System.out.println(boardVo.getBoardTitle()+ " - title 데이터 확인 (서비스)");
+		System.out.println(boardVo.getBoardComment()+ " - comment 데이터 확인 (서비스)");
+		if(boardVo.getBoardTitle() == null || boardVo.getBoardTitle() == "" || boardVo.getBoardTitle().length() == 0
+				|| boardVo.getBoardComment() == null || boardVo.getBoardComment() == "" || boardVo.getBoardComment().length() ==0) {
+			return 0;
+		}
+		else{return boardDao.boardInsert(boardVo);}
 	}
 	
 	

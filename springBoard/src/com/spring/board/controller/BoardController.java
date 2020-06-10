@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.lang.*;
 
 import org.apache.commons.lang.StringUtils;
@@ -90,17 +94,19 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board/boardWrite.do", method = RequestMethod.GET)
 	public String boardWrite(Locale locale, Model model) throws Exception{
-		
-		
+
 		return "board/boardWrite";
 	}
 	
 	@RequestMapping(value = "/board/boardWriteAction.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String boardWriteAction(Locale locale,BoardVo boardVo) throws Exception{
+	public String boardWriteAction(Locale locale,BoardVo boardVo, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		HashMap<String, String> result = new HashMap<String, String>();
 		CommonUtil commonUtil = new CommonUtil();
+		
+		String boardType = request.getParameter("boardType");
+		System.out.println(boardType+" - Write시 type값 넘어오는지 체크");
 		
 		int resultCnt = boardService.boardInsert(boardVo);
 		

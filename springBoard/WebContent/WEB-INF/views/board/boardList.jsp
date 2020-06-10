@@ -29,9 +29,19 @@ $j(document).ready(function(){
 
 });
 
-
+1
 </script>
 <body>
+<table>
+<tr>
+	<td>
+		<a href="">Login</a>
+	</td>
+	<td>
+		<a href="">Join</a>
+	</td>
+</tr>
+</table>
 <table  align="center">
 	<tr>
 		<td align="right">
@@ -55,7 +65,7 @@ $j(document).ready(function(){
 				<c:forEach items="${boardList}" var="list">
 					<tr>
 						<td align="center">
-							${list.boardType}
+							${list.code_name}
 						</td>
 						<td>
 							${list.boardNum}
@@ -68,20 +78,23 @@ $j(document).ready(function(){
 			</table>
 		</td>
 	</tr>
+	
+	
 	<tr>
 		<td align="right">
 			<a href ="/board/boardWrite.do">글쓰기</a>
 		</td>
 	</tr>
 </table>
+
 <form action="">
 <table>
 	<tr>
 		<input type='checkbox' id='all' name='all' value='all' />전체
-		<input type='checkbox' id='code_name' name='code_name' value='normal' />일반
-		<input type='checkbox' id='code_name' name='code_name' value='qna' />Q&A
-		<input type='checkbox' id='code_name' name='code_name' value='anonymous' />익명
-		<input type='checkbox' id='code_name' name='code_name' value='free' />자유
+		<input type='checkbox' id='boardType' name='boardType' value='a01' />일반
+		<input type='checkbox' id='boardType' name='boardType' value='a02' />Q&A
+		<input type='checkbox' id='boardType' name='boardType' value='a03' />익명
+		<input type='checkbox' id='boardType' name='boardType' value='a04' />자유
 		<input type='submit' value='조회' />
 	</tr>
 </table>	

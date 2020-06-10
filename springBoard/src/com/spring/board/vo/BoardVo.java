@@ -8,7 +8,17 @@ public class BoardVo {
 	private String 	boardComment;
 	private String 	creator;
 	private String	modifier;
+	private String	codeName;
 	private int totalCnt;
+	
+	public String getCodeName() {
+		return codeName;
+	}
+
+	public void setCodeName(String codeName) {
+		this.codeName = codeName;
+	}
+	
 	
 	public BoardVo() {}
 	
@@ -16,7 +26,6 @@ public class BoardVo {
 		this.boardTitle = boardTitle;
 		this.boardComment = boardComment;
 	}
-	
 	
 	public int getTotalCnt() {
 		return totalCnt;
@@ -60,6 +69,5 @@ public class BoardVo {
 	public void setModifier(String modifier) {
 		this.modifier = modifier;
 	}
-	
 	
 }
