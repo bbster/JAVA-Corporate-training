@@ -3,6 +3,7 @@ package com.spring.board.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -48,10 +49,11 @@ public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@RequestMapping(value = "/board/boardList.do", method = RequestMethod.GET)
-	public String boardList(Locale locale, PageVo pageVo, Model model) throws Exception{
+	public String boardList(Locale locale, PageVo pageVo, Model model
+			, HttpServletRequest request) throws Exception{
 		
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
-		
+
 		int page = 1;
 		int totalCnt = 0;
 		
@@ -118,7 +120,7 @@ public class BoardController {
 		return callbackMsg;
 	}
 	
-	@RequestMapping(value = "/board/boardDelete", method = RequestMethod.POST) 
+	@RequestMapping(value = "/board/boardDelete", method = RequestMethod.GET) 
 	public String boardDelete(@RequestParam("boardNum")int boardNum, RedirectAttributes redirectAttributes) throws Exception{
 		int status = boardService.boardDelete(boardNum);
 		

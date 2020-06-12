@@ -35,9 +35,6 @@ public class boardServiceImpl implements boardService{
 	public BoardVo selectBoard(String boardType, int boardNum) throws Exception {
 		BoardVo boardVo = new BoardVo();
 		
-		System.out.println(boardVo.getBoardType()+" ServiceImpl_BoardView_boardType");
-		System.out.println(boardVo.getBoardNum()+" ServiceImpl_BoardView_boardNum");
-		
 		boardVo.setBoardType(boardType);
 		boardVo.setBoardNum(boardNum);
 		
@@ -46,8 +43,6 @@ public class boardServiceImpl implements boardService{
 	
 	@Override
 	public int boardInsert(BoardVo boardVo) throws Exception {
-		System.out.println(boardVo.getBoardTitle()+ " - title 데이터 확인 (서비스)");
-		System.out.println(boardVo.getBoardComment()+ " - comment 데이터 확인 (서비스)");
 		if(boardVo.getBoardTitle() == null || boardVo.getBoardTitle() == "" || boardVo.getBoardTitle().length() == 0
 				|| boardVo.getBoardComment() == null || boardVo.getBoardComment() == "" || boardVo.getBoardComment().length() ==0) {
 			return 0;
