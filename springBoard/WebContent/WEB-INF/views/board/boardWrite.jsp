@@ -76,8 +76,8 @@
 						<td height="300" align="center">
 						Comment
 						</td>
-						<td valign="top">
-						<textarea name="boardComment"  rows="20" cols="55">${board.boardComment}</textarea>
+						<td valign="top" style=¡±word-break:break_all;padding:0;>
+						<textarea name="boardComment" rows="20" cols="55" wrap="soft" style="resize: none;">${board.boardComment}</textarea>
 						</td>
 					</tr>
 					<tr>

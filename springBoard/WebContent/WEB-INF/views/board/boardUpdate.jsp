@@ -36,18 +36,15 @@ $j(document).ready(function(){
 					Title
 					</td>
 					<td width="400">
-						<input name="boardTitle" type="text" value="${board.boardTitle}" />
+						<input name="boardTitle" type="text" size="50" value="${board.boardTitle}" />
 					</td>
-					
-					
-					
 				</tr>
 				<tr>
 					<td height="300" align="center">
 					Comment
 					</td>
 					<td>
-					<input name="boardComment" type="text" value="${board.boardComment}" />
+					<textarea name="boardComment" rows="20" cols="55" wrap="soft" style="resize: none;">${board.boardComment}</textarea>
 					</td>
 				</tr>
 				<tr>
