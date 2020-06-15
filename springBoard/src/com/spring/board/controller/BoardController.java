@@ -35,6 +35,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.board.HomeController;
 import com.spring.board.service.boardService;
 import com.spring.board.vo.BoardVo;
+import com.spring.board.vo.ComCodeVo;
 import com.spring.board.vo.PageVo;
 import com.spring.common.CommonUtil;
 
@@ -53,6 +54,7 @@ public class BoardController {
 			, HttpServletRequest request) throws Exception{
 		
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
+		List<ComCodeVo> codeList = new ArrayList<ComCodeVo>();
 
 		int page = 1;
 		int totalCnt = 0;
@@ -62,8 +64,12 @@ public class BoardController {
 		}
 		
 		boardList = boardService.SelectBoardList(pageVo);
+		codeList = boardService.codeNameList();
 		totalCnt = boardService.selectBoardCnt();
 		
+		System.out.println("코드네임 리스트 데이터 확인" + codeList);
+		
+		model.addAttribute("codeName", codeList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("totalCnt", totalCnt);
 		model.addAttribute("pageNo", page);

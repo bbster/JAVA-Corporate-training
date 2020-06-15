@@ -7,9 +7,24 @@
     	<result property="boardNum" 	column="BOARD_NUM"/>
     	<result property="boardTitle" 	column="BOARD_TITLE"/>
     	<result property="boardComment" column="BOARD_COMMENT"/>
-    	<result property="codeId" column="CODE_ID"/>
-    	<result property="codeName" column="CODE_NAME"/>
+    	<result property="codeId" 		column="CODE_ID"/>
+    	<result property="codeName" 	column="CODE_NAME"/>
     </resultMap>
+    
+    <resultMap type="com.spring.board.vo.ComCodeVo" id="ComCodeVo">
+		<result property="codeId" 		column="CODE_ID"/>
+    	<result property="codeName" 	column="CODE_NAME"/>
+    	<result property="codeType" 	column="CODE_TYPE"/>
+    </resultMap>
+    
+    <select id="codeNameList" parameterType="com.spring.board.vo.ComCodeVo" resultMap="comCodeVo">
+   		SELECT
+			CODE_NAME
+		FROM
+			COM_CODE
+		WHERE
+			CODE_TYPE='menu'
+   </select>
     
     <select id="boardList" parameterType="com.spring.board.vo.PageVo" resultMap="boardVo">
         SELECT 
@@ -31,8 +46,6 @@
 		      	,COUNT(*) OVER() AS TOTAL_CNT
 			FROM
 				BOARD, COM_CODE
-			WHERE
-				BOARD_TYPE = CODE_ID
 		)
 		WHERE NUMROW BETWEEN (#{pageNo}-1)*10 + 1 AND (#{pageNo})*10
     </select>

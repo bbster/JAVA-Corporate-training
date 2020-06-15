@@ -8,8 +8,6 @@ public class BoardVo {
 	private String 	boardComment;
 	private String 	creator;
 	private String	modifier;
-	private String	codeName;
-	private String	codeId;
 	private int totalCnt;
 	
 	public BoardVo() {}
@@ -18,23 +16,7 @@ public class BoardVo {
 		this.boardTitle = boardTitle;
 		this.boardComment = boardComment;
 	}
-	
-	
-	public String getCodeId() {
-		return codeId;
-	}
 
-	public void setCodeId(String codeId) {
-		this.codeId = codeId;
-	}
-
-	public String getCodeName() {
-		return codeName;
-	}
-
-	public void setCodeName(String codeName) {
-		this.codeName = codeName;
-	}
 	public int getTotalCnt() {
 		return totalCnt;
 	}

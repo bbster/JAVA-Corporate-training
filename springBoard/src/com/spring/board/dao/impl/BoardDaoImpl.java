@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.board.dao.BoardDao;
 import com.spring.board.vo.BoardVo;
+import com.spring.board.vo.ComCodeVo;
 import com.spring.board.vo.PageVo;
 import com.sun.media.jfxmedia.logging.Logger;
 
@@ -72,5 +73,10 @@ public class BoardDaoImpl implements BoardDao{
 	public int boardUpdate(BoardVo boardVo) throws SQLException {
 		System.out.println(sqlSession.update("board.boardUpdate", boardVo)+" 보드 업데이트 데이터 체크");
 		return sqlSession.update("board.boardUpdate", boardVo);
+	}
+	
+	@Override
+	public List<ComCodeVo> codeNameList() throws Exception {
+		return sqlSession.selectList("board.codeNameList");
 	}
 }

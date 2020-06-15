@@ -103,7 +103,7 @@ if(message){
 };
 
 
-/* 체크박스 전체선택/전체선택 해제 */
+/* 체크박스 전체선택/전체해제 */
 $j(document).ready(function(){
     $j("#all").click(function(){
         if($j("#all").prop("checked")){
@@ -114,8 +114,6 @@ $j(document).ready(function(){
     });
     drawPosts('all');
 });
-
-
 
 
 /* 체크박스 전체선택부분의 함수 */
@@ -151,6 +149,7 @@ function drawPosts(filterProps){
 function onCheckboxSubmit(){
     var checkedTypes = [];
     boardListCheckboxs.each(function(){
+    	
    		if(this.checked){ checkedTypes.push(this); } 
     });
     if(checkedTypes.length){
@@ -158,6 +157,9 @@ function onCheckboxSubmit(){
         checkedTypes.forEach(function(type){
         	drawPosts(type.value)
         })
+    }
+    else{
+    	window.location.href = '/board/boardList.do';
     }
 }
 </script>
