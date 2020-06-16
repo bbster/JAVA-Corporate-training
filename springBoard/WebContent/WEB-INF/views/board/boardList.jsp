@@ -56,16 +56,17 @@
 
 <table>
 	<tr>
-		<td >
-			<input  type='checkbox' id='all' name='all' value='all' />전체
-			<input  type='checkbox' id='boardType' name='boardType' value='일반' />일반
-			<input  type='checkbox' id='boardType' name='boardType' value='Q&A' />Q&A
-			<input  type='checkbox' id='boardType' name='boardType' value='익명' />익명
-			<input  type='checkbox' id='boardType' name='boardType' value='자유' />자유
-			<input id="board-list-submit" type='submit' value='조회'  onClick='onCheckboxSubmit()'/>
+		<td>
+			<form id="selectType"  method="get" action="/board/boardList.do">
+			<input type="checkbox"  id="all" name="all" value="all">전체선택
+			<c:forEach var="comCode" items="${codeName}" varStatus="status">
+			<input type="checkbox" name="boardType" value="${comCode.codeId}">${comCode.codeName}</>
+			</c:forEach>
+			<input id="board-list-submit" type='submit' value='조회' onClick='onCheckboxSubmit()'/>
+			</form>
 		</td>
 	</tr>
-</table>	
+</table>
 </body>
 
 
@@ -88,8 +89,9 @@
 
 <script type="text/javascript">
 var boardListTable = $j("#board-list-table");
-var boardListCheckboxs = $j("input:checkbox[name=boardType]")
-
+/* var boardListCheckboxs = $j("input:checkbox[name=boardType]"); */
+/* JSTL 내장함수 fn으로 boardType의 요소의 개수를 리턴 한다.  */
+var typeLength = ${fn:length(codeName)};
 
 /* 리스트 데이터 ajax로 가져옴 */
 $j.ajax({
@@ -106,12 +108,12 @@ if(message){
 /* 체크박스 전체선택/전체해제 */
 $j(document).ready(function(){
     $j("#all").click(function(){
-        if($j("#all").prop("checked")){
-            $j("input[name=boardType]").prop("checked",true);
+    	if($j("input[name='boardType']:checked").length == typeLength){
+            $j("#all").prop("checked", true);
         }else{
-            $j("input[name=boardType]").prop("checked",false);
+            $j("#all").prop("checked",false);
         }
-    });
+    }); 
     drawPosts('all');
 });
 

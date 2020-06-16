@@ -2,14 +2,13 @@ package com.spring.board.vo;
 
 public class ComCodeVo {
 	
-	public String codeType;
-	public String codeId;
-	public String codeName;
-	public String creator;
-	public String createTime;
-	public String modifier;
-	public String modifiedTime;
-	
+	private String codeType;
+	private String codeId;
+	private String codeName;
+	private String creator;
+	private String createTime;
+	private String modifier;
+	private String modifiedTime;
 	public String getCodeType() {
 		return codeType;
 	}
@@ -52,5 +51,6 @@ public class ComCodeVo {
 	public void setModifiedTime(String modifiedTime) {
 		this.modifiedTime = modifiedTime;
 	}
+
 	
 }
