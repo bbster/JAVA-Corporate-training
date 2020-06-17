@@ -53,8 +53,10 @@ public class BoardController {
 	public String boardList(Locale locale, PageVo pageVo, Model model
 			, HttpServletRequest request) throws Exception{
 		
-		List<BoardVo> boardList = new ArrayList<BoardVo>();
 		List<ComCodeVo> codeList = new ArrayList<ComCodeVo>();
+		codeList = boardService.codeNameList();
+		
+		List<BoardVo> boardList = new ArrayList<BoardVo>();
 
 		int page = 1;
 		int totalCnt = 0;
@@ -63,11 +65,9 @@ public class BoardController {
 			pageVo.setPageNo(page);;
 		}
 		
-		boardList = boardService.SelectBoardList(pageVo);
-		codeList = boardService.codeNameList();
-		totalCnt = boardService.selectBoardCnt();
 		
-		System.out.println("코드네임 리스트 데이터 확인" + codeList);
+		boardList = boardService.SelectBoardList(pageVo);
+		totalCnt = boardService.selectBoardCnt();
 		
 		model.addAttribute("codeName", codeList);
 		model.addAttribute("boardList", boardList);

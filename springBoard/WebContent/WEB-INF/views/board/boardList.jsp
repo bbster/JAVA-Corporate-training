@@ -58,9 +58,9 @@
 	<tr>
 		<td>
 			<form id="selectType"  method="get" action="/board/boardList.do">
-			<input type="checkbox"  id="all" name="all" value="all">전체선택
+			<input type="checkbox" class="chk" id="chk_all" name="chk_all">전체선택
 			<c:forEach var="comCode" items="${codeName}" varStatus="status">
-			<input type="checkbox" name="boardType" value="${comCode.codeId}">${comCode.codeName}</>
+			<input type="checkbox" class="chk" name="boardType" value="${comCode.codeId}">${comCode.codeName}</>
 			</c:forEach>
 			<input id="board-list-submit" type='submit' value='조회' onClick='onCheckboxSubmit()'/>
 			</form>
@@ -89,9 +89,8 @@
 
 <script type="text/javascript">
 var boardListTable = $j("#board-list-table");
-/* var boardListCheckboxs = $j("input:checkbox[name=boardType]"); */
-/* JSTL 내장함수 fn으로 boardType의 요소의 개수를 리턴 한다.  */
-var typeLength = ${fn:length(codeName)};
+var boardListCheckboxs = $j("input:checkbox[name=boardType]");
+
 
 /* 리스트 데이터 ajax로 가져옴 */
 $j.ajax({
@@ -104,19 +103,33 @@ if(message){
 	alert(message);
 };
 
-
 /* 체크박스 전체선택/전체해제 */
 $j(document).ready(function(){
-    $j("#all").click(function(){
-    	if($j("input[name='boardType']:checked").length == typeLength){
-            $j("#all").prop("checked", true);
-        }else{
-            $j("#all").prop("checked",false);
-        }
-    }); 
-    drawPosts('all');
-});
+	$j("#chk_all").click(function(){
+		if($j("#chk_all").is(":checked")){
+			$j(".chk").prop("checked", true);
+		}else{
+			$j(".chk").prop("checked",false);
+		}
+	}); 
 
+
+/* JSTL 내장함수 fn으로 boardType의 요소의 개수를 리턴 한다.  */
+var typeLength = ${fn:length(codeName)};
+
+console.log("codeName 개수: "+ typeLength);
+console.log("checked 된 개수 " + $j("input[name=boardType]:checked").length);
+
+    
+$j(".chk").click(function(){
+	if($j("input[name=boardType]:checked").length == typeLength){
+		$j("#chk_all").prop("checked", true);
+	}else{
+		$j("#chk_all").prop("checked", false);
+	}
+	drawPosts("type");
+});
+});
 
 /* 체크박스 전체선택부분의 함수 */
 /* filterProps 매개변수가 'all'로 들어왔을때 or codeName값으로 들어왔을때 */
@@ -125,7 +138,7 @@ $j(document).ready(function(){
 /* tr변수에 append를 사용하여 데이터를 붙여줌 / boardListTable은 html 테이블 그리는 부분에 넣어줌 */
 function drawPosts(filterProps){
     for(var i =0; i <= listData.length-1; i++){
-    	if(filterProps==='all' || listData[i].codeName === filterProps){
+    	if(filterProps === 'all' || listData[i].codeName === filterProps){
      		var tr = $j("<tr/>");
     		var tdCodeName = $j("<td/>", {
   		  	text: listData[i].codeName,
