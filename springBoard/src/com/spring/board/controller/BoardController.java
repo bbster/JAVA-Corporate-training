@@ -53,9 +53,17 @@ public class BoardController {
 	public String boardList(Locale locale, PageVo pageVo, Model model
 			, HttpServletRequest request) throws Exception{
 		
+		String[] checkList =(String[])request.getParameterValues("boardType");
+		
+		if(checkList != null) {
+			for(int j=0; j<checkList.length; j++) {
+				System.out.println("checked List 출력 : " + checkList[j]);
+			}
+			pageVo.setBoardTypeParams(checkList);
+		}
+		
 		List<ComCodeVo> codeList = new ArrayList<ComCodeVo>();
 		codeList = boardService.codeNameList();
-		
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
 
 		int page = 1;
@@ -64,7 +72,6 @@ public class BoardController {
 		if(pageVo.getPageNo() == 0){
 			pageVo.setPageNo(page);;
 		}
-		
 		
 		boardList = boardService.SelectBoardList(pageVo);
 		totalCnt = boardService.selectBoardCnt();

@@ -10,13 +10,13 @@
 <title>list</title>
 </head>
 <body>
-<table>
+<table align="center">
 <tr>
 	<td>
-		<a href="">Login</a>
+		<a href="/user/joinogin.do">Login</a>
 	</td>
 	<td>
-		<a href="">Join</a>
+		<a href="/user/join.do">Join</a>
 	</td>
 </tr>
 </table>
@@ -43,6 +43,19 @@
 				</tr>
 			</thead>
 			<tbody id="board-list-table">
+				<c:forEach items="${boardList}" var="list">
+					<tr>
+						<td>
+							${list.codeName}
+						</td>
+						<td>
+							${list.boardNum}
+						</td>
+						<td>
+							<a href="/board/${list.boardType}/${list.boardNum}/boardView.do">${list.boardTitle}</a>
+						</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 			</table>
 		</td>
@@ -53,51 +66,23 @@
 		</td>
 	</tr>
 </table>
-
-<table>
+<table align="center">
 	<tr>
 		<td>
 			<form id="selectType"  method="get" action="/board/boardList.do">
 			<input type="checkbox" class="chk" id="chk_all" name="chk_all">전체선택
 			<c:forEach var="comCode" items="${codeName}" varStatus="status">
-			<input type="checkbox" class="chk" name="boardType" value="${comCode.codeId}">${comCode.codeName}</>
+			<input type="checkbox" class="chk" id="boardType" name="boardType" value="${comCode.codeId}">${comCode.codeName}</>
 			</c:forEach>
-			<input id="board-list-submit" type='submit' value='조회' onClick='onCheckboxSubmit()'/>
+			<input type='submit' value='조회' onClick='onCheckboxSubmit()'/>
 			</form>
 		</td>
 	</tr>
 </table>
 </body>
 
-
 <script type="text/javascript">
 	var message = "${msg}";
-	var listData=[];
-</script>
-
-<!-- 보드 리스트 출력 -->
-<c:forEach items="${boardList}" var="list">
-	<script type="text/javascript">
-		listData.push({
-			codeName:'${list.codeName}',
-			boardNum:'${list.boardNum}',
-			boardTitle:'${list.boardTitle}',
-			boardType:'${list.boardType}'
-		});
-	</script>
-</c:forEach>
-
-<script type="text/javascript">
-var boardListTable = $j("#board-list-table");
-var boardListCheckboxs = $j("input:checkbox[name=boardType]");
-
-
-/* 리스트 데이터 ajax로 가져옴 */
-$j.ajax({
-	url: "boardList.do",
-	type: "GET",
-	data:listData,
-});
 
 if(message){
 	alert(message);
@@ -113,69 +98,16 @@ $j(document).ready(function(){
 		}
 	}); 
 
-
 /* JSTL 내장함수 fn으로 boardType의 요소의 개수를 리턴 한다.  */
 var typeLength = ${fn:length(codeName)};
 
-console.log("codeName 개수: "+ typeLength);
-console.log("checked 된 개수 " + $j("input[name=boardType]:checked").length);
-
-    
-$j(".chk").click(function(){
-	if($j("input[name=boardType]:checked").length == typeLength){
-		$j("#chk_all").prop("checked", true);
-	}else{
-		$j("#chk_all").prop("checked", false);
-	}
-	drawPosts("type");
-});
-});
-
-/* 체크박스 전체선택부분의 함수 */
-/* filterProps 매개변수가 'all'로 들어왔을때 or codeName값으로 들어왔을때 */
-/* tr td 그려주고 배열에 담김 데이터값 출력 */
-/* title부분에는 href로 링크 처리 */
-/* tr변수에 append를 사용하여 데이터를 붙여줌 / boardListTable은 html 테이블 그리는 부분에 넣어줌 */
-function drawPosts(filterProps){
-    for(var i =0; i <= listData.length-1; i++){
-    	if(filterProps === 'all' || listData[i].codeName === filterProps){
-     		var tr = $j("<tr/>");
-    		var tdCodeName = $j("<td/>", {
-  		  	text: listData[i].codeName,
-			});
-    		var tdBoardNum = $j("<td/>", {
-  		  	text: listData[i].boardNum,
-			});
-    		var tdBoardTitle = $j("<td/>");
-    		var tdBoardTitleLink = $j("<a/>", {
-		  		text: listData[i].boardTitle,
-	  			attr:{ href:"/board/"+listData[i].boardType+"/"+listData[i].boardNum+"/boardView.do" }
-				});
-	    	tr.append( [tdCodeName, tdBoardNum, tdBoardTitle.append(tdBoardTitleLink)] ).appendTo(boardListTable);
+	$j(".chk").click(function(){
+		if($j("input[name=boardType]:checked").length == typeLength){
+			$j("#chk_all").prop("checked", true);
+		}else{
+			$j("#chk_all").prop("checked", false);
 		}
-    }
-}
-
-
-/* submit버튼(조회)을 눌렀을때 checkbox의 checked 상태값을 가지고 작동 */
-/* checkbox 엘리먼트들을 checked가 되었을때 새로운 배열에 집어넣고  */
-/* 새로운 배열의 길이가 있을때 화면을 지움(그렇지 않으면 계속 리스트가 쌓여감) */
-/* checkbox의 value 값을 기준으로 화면을 다시 그림 */
-function onCheckboxSubmit(){
-    var checkedTypes = [];
-    boardListCheckboxs.each(function(){
-    	
-   		if(this.checked){ checkedTypes.push(this); } 
-    });
-    if(checkedTypes.length){
-    	boardListTable.empty();
-        checkedTypes.forEach(function(type){
-        	drawPosts(type.value)
-        })
-    }
-    else{
-    	window.location.href = '/board/boardList.do';
-    }
-}
+	});
+});
 </script>
 </html>

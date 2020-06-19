@@ -11,13 +11,14 @@
     	<result property="codeName" 	column="CODE_NAME"/>
     </resultMap>
     
+    <!-- checkbox value -->
     <resultMap type="com.spring.board.vo.ComCodeVo" id="ComCodeVo">
 		<result property="codeId" 		column="CODE_ID"/>
     	<result property="codeName" 	column="CODE_NAME"/>
     	<result property="codeType" 	column="CODE_TYPE"/>
     </resultMap>
     
-    <select id="codeNameList" parameterType="com.spring.board.vo.ComCodeVo" resultMap="ComCodeVo">
+   <select id="codeNameList" parameterType="com.spring.board.vo.ComCodeVo" resultMap="ComCodeVo">
    		SELECT
    			CODE_ID
 			,CODE_NAME
@@ -38,7 +39,8 @@
 		FROM 
 		(
 		  SELECT
-		  		CODE_NAME
+		  		CODE_ID
+		  		,CODE_NAME
 		  		,BOARD_TYPE
 				,BOARD_NUM
 				,BOARD_TITLE
@@ -47,8 +49,19 @@
 		      	,COUNT(*) OVER() AS TOTAL_CNT
 			FROM
 				BOARD, COM_CODE
-			WHERE
+			<!-- 동적 쿼리 사용을 위한 기능 switch case 느낌? -->
+			<trim prefix='WHERE' prefixOverrides="AND|OR">
 				CODE_ID = BOARD_TYPE
+				<!-- checkbox parameter 값이 null이 아닐때 -->
+				<if test="boardTypeParams != null">
+				AND BOARD_TYPE IN
+				<!-- checkbox 필터링 -->
+				<!-- collection: 전달받은 인자(parameter) -->
+					<foreach collection="boardTypeParams" item="board_type" open="(" close=")" separator=",">
+						#{board_type}
+					</foreach>
+				</if>
+			</trim>
 		)
 		WHERE NUMROW BETWEEN (#{pageNo}-1)*10 + 1 AND (#{pageNo})*10
     </select>
