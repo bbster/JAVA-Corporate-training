@@ -56,12 +56,11 @@
 							Type
 						</td>
 						<td width="400">
-						<select id="boardType" name="boardType">
-								<option value="a01">일반</option>
-								<option value="a02">Q&A</option>
-								<option value="a03">익명</option>
-								<option value="a04">자유</option>
-							</select> 
+						<select>
+						<c:forEach var="comCode" items="${codeName}" varStatus="status">
+							<option value="${comCode.codeId}"/>
+						</c:forEach> 
+						</select>
 						</td>
 					</tr>
 					<tr>

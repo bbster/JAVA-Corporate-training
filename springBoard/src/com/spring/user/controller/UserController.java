@@ -7,9 +7,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.lang.*;
 
@@ -33,8 +35,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.board.HomeController;
-import com.spring.user.service.userService;
 import com.spring.user.vo.UserVo;
+import com.spring.user.service.userService;
 
 import sun.invoke.empty.Empty;
 
@@ -42,18 +44,22 @@ import sun.invoke.empty.Empty;
 public class UserController {
 	
 	@Autowired 
-	userService userService;
+	userService userService; 
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@RequestMapping(value = "/user/join.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/users/userJoin.do", method = RequestMethod.GET)
 	@ResponseBody
-	public String boardList(Locale locale,UserVo userVo, Model model
+	public String userJoin(Locale locale,UserVo userVo, Model model
 			, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		
 		userService.userJoin(userVo);
-		
-		return "board/boardList";
+		return "redirect:/users/userLogin.do";
 	}
-
+	
+	@RequestMapping(value = "/users/userLogin.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String userLogin(HttpSession session, UserVo userVo, Locale locale
+			, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		return "redirect:/users/userLogin.do";
+	}
 }

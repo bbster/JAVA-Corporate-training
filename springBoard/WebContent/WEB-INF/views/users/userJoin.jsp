@@ -5,11 +5,15 @@
 <head>
 <meta charset="EUC-KR">
 </head>
+<title>
+회원가입
+</title>
 <body>
 	<table>
 		<tbody>
-			<div>
-			<button style="float:left"  onclick="location.href='/board/boardList.do'" type="button">목록</button>
+			<td>
+				<button style="float:left"  onclick="location.href='/board/boardList.do'" type="button">목록</button>
+			</td>
 		</tbody>
 	</table>
 	<table>

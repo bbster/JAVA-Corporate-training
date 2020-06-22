@@ -54,7 +54,7 @@
 				CODE_ID = BOARD_TYPE
 				<!-- checkbox parameter 값이 null이 아닐때 -->
 				<if test="boardTypeParams != null">
-				AND BOARD_TYPE IN
+					AND BOARD_TYPE IN
 				<!-- checkbox 필터링 -->
 				<!-- collection: 전달받은 인자(parameter) -->
 					<foreach collection="boardTypeParams" item="board_type" open="(" close=")" separator=",">
@@ -125,5 +125,6 @@
     	DELETE 
     	BOARD 
     	WHERE   BOARD_NUM = #{BOARD_NUM}
+    	AND     BOARD_TYPE = #{boardType}
     </select>
 </mapper>

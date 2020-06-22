@@ -13,10 +13,10 @@
 <table align="center">
 <tr>
 	<td>
-		<a href="/user/joinogin.do">Login</a>
+		<a href="/users/userLogin.do">Login</a>
 	</td>
 	<td>
-		<a href="/user/join.do">Join</a>
+		<a href="/users/userJoin.do">Join</a>
 	</td>
 </tr>
 </table>

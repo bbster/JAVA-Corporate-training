@@ -31,9 +31,6 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return a;
 	}
-	/**
-	 * 
-	 * */
 	@Override
 	public List<BoardVo> selectBoardList(PageVo pageVo) throws Exception {
 		// TODO Auto-generated method stub

@@ -2,125 +2,123 @@ package com.spring.user.vo;
 
 public class UserVo {
 	
-	private String 	USER_ID;
-	private String 	USER_PW;
-	private String 	USER_NAME;
-	private String 	USER_PHONE1;
-	private String 	USER_PHONE2;
-	private String	USER_PHONE3;
-	private String USER_ADDR1;
-	private String USER_ADDR2;
-	private String USER_COMPANY;
-	private String CREATOR;
-	private String CREATE_TIME;
-	private String MODIFIER;
-	private String MODIFIED_TIME;
+	private String userID;
+	private String userPw;
+	private String userName;
+	private String userPhone1;
+	private String userPhone2;
+	private String userPhone3;
+	private String userAddr1;
+	private String userAddr2;
+	private String userCompany;
+	private String creator;
+	private String createTime;
+	private String modifier;
+	private String modifiedTime;
 	
-	public UserVo() {}
-
-	public String getUSER_ID() {
-		return USER_ID;
+	public String getUserID() {
+		return userID;
 	}
 
-	public void setUSER_ID(String uSER_ID) {
-		USER_ID = uSER_ID;
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
 
-	public String getUSER_PW() {
-		return USER_PW;
+	public String getUserPw() {
+		return userPw;
 	}
 
-	public void setUSER_PW(String uSER_PW) {
-		USER_PW = uSER_PW;
+	public void setUserPw(String userPw) {
+		this.userPw = userPw;
 	}
 
-	public String getUSER_NAME() {
-		return USER_NAME;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUSER_NAME(String uSER_NAME) {
-		USER_NAME = uSER_NAME;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getUSER_PHONE1() {
-		return USER_PHONE1;
+	public String getUserPhone1() {
+		return userPhone1;
 	}
 
-	public void setUSER_PHONE1(String uSER_PHONE1) {
-		USER_PHONE1 = uSER_PHONE1;
+	public void setUserPhone1(String userPhone1) {
+		this.userPhone1 = userPhone1;
 	}
 
-	public String getUSER_PHONE2() {
-		return USER_PHONE2;
+	public String getUserPhone2() {
+		return userPhone2;
 	}
 
-	public void setUSER_PHONE2(String uSER_PHONE2) {
-		USER_PHONE2 = uSER_PHONE2;
+	public void setUserPhone2(String userPhone2) {
+		this.userPhone2 = userPhone2;
 	}
 
-	public String getUSER_PHONE3() {
-		return USER_PHONE3;
+	public String getUserPhone3() {
+		return userPhone3;
 	}
 
-	public void setUSER_PHONE3(String uSER_PHONE3) {
-		USER_PHONE3 = uSER_PHONE3;
+	public void setUserPhone3(String userPhone3) {
+		this.userPhone3 = userPhone3;
 	}
 
-	public String getUSER_ADDR1() {
-		return USER_ADDR1;
+	public String getUserAddr1() {
+		return userAddr1;
 	}
 
-	public void setUSER_ADDR1(String uSER_ADDR1) {
-		USER_ADDR1 = uSER_ADDR1;
+	public void setUserAddr1(String userAddr1) {
+		this.userAddr1 = userAddr1;
 	}
 
-	public String getUSER_ADDR2() {
-		return USER_ADDR2;
+	public String getUserAddr2() {
+		return userAddr2;
 	}
 
-	public void setUSER_ADDR2(String uSER_ADDR2) {
-		USER_ADDR2 = uSER_ADDR2;
+	public void setUserAddr2(String userAddr2) {
+		this.userAddr2 = userAddr2;
 	}
 
-	public String getUSER_COMPANY() {
-		return USER_COMPANY;
+	public String getUserCompany() {
+		return userCompany;
 	}
 
-	public void setUSER_COMPANY(String uSER_COMPANY) {
-		USER_COMPANY = uSER_COMPANY;
+	public void setUserCompany(String userCompany) {
+		this.userCompany = userCompany;
 	}
 
-	public String getCREATOR() {
-		return CREATOR;
+	public String getCreator() {
+		return creator;
 	}
 
-	public void setCREATOR(String cREATOR) {
-		CREATOR = cREATOR;
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
-	public String getCREATE_TIME() {
-		return CREATE_TIME;
+	public String getCreateTime() {
+		return createTime;
 	}
 
-	public void setCREATE_TIME(String cREATE_TIME) {
-		CREATE_TIME = cREATE_TIME;
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 
-	public String getMODIFIER() {
-		return MODIFIER;
+	public String getModifier() {
+		return modifier;
 	}
 
-	public void setMODIFIER(String mODIFIER) {
-		MODIFIER = mODIFIER;
+	public void setModifier(String modifier) {
+		this.modifier = modifier;
 	}
 
-	public String getMODIFIED_TIME() {
-		return MODIFIED_TIME;
+	public String getModifiedTime() {
+		return modifiedTime;
 	}
 
-	public void setMODIFIED_TIME(String mODIFIED_TIME) {
-		MODIFIED_TIME = mODIFIED_TIME;
-	}	
+	public void setModifiedTime(String modifiedTime) {
+		this.modifiedTime = modifiedTime;
+	}
 }
 
  

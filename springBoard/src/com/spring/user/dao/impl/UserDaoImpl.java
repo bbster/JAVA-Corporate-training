@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao{
 	
 	@Override
 	public int userJoin(UserVo userVo) throws SQLException {
-		return sqlSession.insert("user.userJoin", userVo);
+		return sqlSession.insert("users.userJoin", userVo);
 	}
 	
 }
