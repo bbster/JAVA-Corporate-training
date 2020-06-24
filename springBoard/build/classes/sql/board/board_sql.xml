@@ -39,8 +39,7 @@
 		FROM 
 		(
 		  SELECT
-		  		CODE_ID
-		  		,CODE_NAME
+		  		CODE_NAME
 		  		,BOARD_TYPE
 				,BOARD_NUM
 				,BOARD_TITLE
@@ -82,7 +81,6 @@
 		FROM
 			BOARD
     	WHERE 	BOARD_TYPE = #{boardType}
-    	AND 	BOARD_NUM  = #{boardNum}
     </select>	
     
     <select id="boardInsert" parameterType="com.spring.board.vo.BoardVo">
@@ -98,10 +96,9 @@
         ,MODIFIED_TIME
         )
         VALUES
-        (#{boardType}
+        (#{codeName}
         ,(SELECT NVL(TO_NUMBER (MAX(BOARD_NUM)), 0)+1
-	    FROM BOARD, COM_CODE
-	    WHERE BOARD_TYPE = CODE_ID)
+	    FROM BOARD, COM_CODE)
         ,#{boardTitle}
         ,#{boardComment}
         ,'SYSTEM'
@@ -124,7 +121,9 @@
     <select id="boardDelete" parameterType="java.lang.Integer">
     	DELETE 
     	BOARD 
-    	WHERE   BOARD_NUM = #{BOARD_NUM}
+    	WHERE   BOARD_NUM  = #{BOARD_NUM}
     	AND     BOARD_TYPE = #{boardType}
+    	AND     BOARD_NUM  = #{boardNum}
+    	AND     CODE_NAME  = #{codeName}
     </select>
 </mapper>

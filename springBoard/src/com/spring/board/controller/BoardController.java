@@ -75,7 +75,7 @@ public class BoardController {
 		
 		boardList = boardService.SelectBoardList(pageVo);
 		totalCnt = boardService.selectBoardCnt();
-		
+
 		model.addAttribute("codeName", codeList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("totalCnt", totalCnt);
@@ -108,14 +108,18 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/board/boardWrite.do", method = RequestMethod.GET)
-	public String boardWrite(Locale locale, Model model) throws Exception{
+	public String boardWrite(HttpServletRequest request, Locale locale, Model model) throws Exception{
+		
+		List<ComCodeVo> codeNameList = new ArrayList<ComCodeVo>();
+		codeNameList = boardService.codeNameList();
+		model.addAttribute("codeName", codeNameList);
 
 		return "board/boardWrite";
 	}
 	
 	@RequestMapping(value = "/board/boardWriteAction.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String boardWriteAction(Locale locale,BoardVo boardVo, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String boardWriteAction(Model model, Locale locale, BoardVo boardVo, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		HashMap<String, String> result = new HashMap<String, String>();
 		CommonUtil commonUtil = new CommonUtil();

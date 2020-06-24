@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>    
 <%@include file="/WEB-INF/views/common/common.jsp"%>
-<%request.setCharacterEncoding("euc-kr"); %>    
+<%request.setCharacterEncoding("euc-kr"); %> 
+<%String path = request.getContextPath();%>   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,7 +11,6 @@
 </head>
 
 <script type="text/javascript">
-
 	$j(document).ready(function(){
 		
 		$j("#submit").on("click",function(){
@@ -56,11 +56,11 @@
 							Type
 						</td>
 						<td width="400">
-						<select>
-						<c:forEach var="comCode" items="${codeName}" varStatus="status">
-							<option value="${comCode.codeId}"/>
-						</c:forEach> 
-						</select>
+							<select id=codeName name="codeName">
+								<c:forEach var="comCode" items="${codeName}">
+									<option value="${comCode.codeId}">${comCode.codeName}</option>
+								</c:forEach>
+							</select>
 						</td>
 					</tr>
 					<tr>
