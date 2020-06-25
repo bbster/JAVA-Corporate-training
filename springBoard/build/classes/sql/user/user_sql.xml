@@ -3,7 +3,7 @@
 <mapper namespace="users">
     
     <resultMap type="com.spring.user.vo.UserVo" id="UserVo">
-    	<result property="userID" 		column="USER_ID"/>
+    	<result property="userId" 		column="USER_ID"/>
     	<result property="userPw" 		column="USER_PW"/>
     	<result property="userName" 	column="USER_NAME"/>
     	<result property="userPhone1" 	column="USER_PHONE1"/>
@@ -17,6 +17,21 @@
     	<result property="modifier" 	column="MODIFIER"/>
     	<result property="modifiedTime" column="MODIFIED_TIME"/>
     </resultMap>
+    
+    <resultMap type="com.spring.board.vo.ComCodeVo" id="ComCodeVo">
+		<result property="codeId"    column="CODE_ID"/>
+    	<result property="codeName"  column="CODE_NAME"/>
+    </resultMap>
+    
+    <select id="codePhoneList" parameterType="com.spring.board.vo.ComCodeVo" resultMap="ComCodeVo">
+   		SELECT
+   			CODE_ID
+			,CODE_NAME
+		FROM
+			COM_CODE
+		WHERE
+			CODE_TYPE='phone'
+   </select>
     
    <select id="userJoin" parameterType="com.spring.user.vo.UserVo" resultMap="UserVo">
         INSERT INTO 
@@ -32,10 +47,10 @@
          ,USER_COMPANY
         )
         VALUES
-        (#{userID}
+        (#{userId}
          ,#{userPw}
          ,#{userName}
-         ,#{userPhone1}
+         ,#{codeName}
          ,#{userPhone2}
          ,#{userPhone3}
          ,#{userAddr1}
@@ -46,5 +61,17 @@
          ,'SYSTEM'
          ,TO_CHAR(SYSDATE)
         )
+   </select>
+   
+   <select id="userLogin" parameterType="com.spring.user.vo.UserVo" resultMap="UserVo">
+   	SELECT 
+   	  USER_ID
+   	  ,USER_PW 
+   	FROM 
+   	  USER_INFO 
+   	WHERE 
+   	  USER_ID = ${userId} 
+   	AND
+   	  USER_PW = ${userPw}
    </select>
 </mapper>

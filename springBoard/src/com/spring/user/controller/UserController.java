@@ -35,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.board.HomeController;
+import com.spring.board.vo.ComCodeVo;
 import com.spring.user.vo.UserVo;
 import com.spring.user.service.userService;
 
@@ -44,22 +45,46 @@ import sun.invoke.empty.Empty;
 public class UserController {
 	
 	@Autowired 
-	userService userService; 
+	userService userService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@RequestMapping(value = "/users/userJoin.do", method = RequestMethod.GET)
-	@ResponseBody
 	public String userJoin(Locale locale,UserVo userVo, Model model
 			, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		userService.userJoin(userVo);
-		return "redirect:/users/userLogin.do";
+		
+		List<ComCodeVo> codePhoneList = new ArrayList<ComCodeVo>();
+		codePhoneList = userService.codePhoneList();
+		model.addAttribute("codeName", codePhoneList);
+
+		return "/users/userJoin";
 	}
 	
 	@RequestMapping(value = "/users/userLogin.do", method = RequestMethod.GET)
-	@ResponseBody
 	public String userLogin(HttpSession session, UserVo userVo, Locale locale
 			, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		return "redirect:/users/userLogin.do";
+		
+//		UserVO userInfo = userService.selectUserView(userVo);
+		
+		session = request.getSession();
+		
+		session.setAttribute("userId", userVo.getUserId());     // userId값 저장   ${userId}
+		session.setAttribute("userName", userVo.getUserName()); // userName값 저장 ${userName}
+		
+		return "/users/userLogin";
+	}
+	
+	@RequestMapping(value = "/users/userJoinAction", method = RequestMethod.POST)
+	@ResponseBody
+	public String userJoinAction(HttpSession session, UserVo userVo, Locale locale
+			, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		userService.userJoin(userVo);
+		
+		model.addAttribute("userId", userVo.getUserId());
+		model.addAttribute("userName", userVo.getUserName());
+		model.addAttribute("userCompany", userVo.getUserCompany());
+		
+		return "redirect:/users/userLogin";
 	}
 }

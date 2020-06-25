@@ -9,6 +9,8 @@ public class ComCodeVo {
 	private String createTime;
 	private String modifier;
 	private String modifiedTime;
+	
+	
 	public String getCodeType() {
 		return codeType;
 	}

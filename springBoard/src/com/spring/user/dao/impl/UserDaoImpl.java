@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.spring.board.vo.ComCodeVo;
 import com.spring.user.dao.UserDao;
 import com.spring.user.vo.UserVo;
 import com.sun.media.jfxmedia.logging.Logger;
@@ -24,6 +25,16 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public int userJoin(UserVo userVo) throws SQLException {
 		return sqlSession.insert("users.userJoin", userVo);
+	}
+
+	@Override
+	public UserVo userLogin(UserVo userVo) throws Exception {
+		return sqlSession.selectOne("users.userLogin", userVo);
+	}
+	
+	@Override
+	public List<ComCodeVo> codePhoneList() throws Exception {
+		return sqlSession.selectList("users.codePhoneList");
 	}
 	
 }

@@ -27,7 +27,7 @@
 		WHERE
 			CODE_TYPE='menu'
    </select>
-    
+   
     <select id="boardList" parameterType="com.spring.board.vo.PageVo" resultMap="boardVo">
         SELECT 
           CODE_NAME

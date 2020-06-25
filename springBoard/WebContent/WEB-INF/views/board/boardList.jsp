@@ -16,7 +16,7 @@
 		<a href="/users/userLogin.do">Login</a>
 	</td>
 	<td>
-		<a href="/users/userJoin.do">Join</a>
+		<a href ="/users/userJoin.do">Join</a>
 	</td>
 </tr>
 </table>

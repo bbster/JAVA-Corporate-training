@@ -2,7 +2,7 @@ package com.spring.user.vo;
 
 public class UserVo {
 	
-	private String userID;
+	private String userId;
 	private String userPw;
 	private String userName;
 	private String userPhone1;
@@ -15,13 +15,31 @@ public class UserVo {
 	private String createTime;
 	private String modifier;
 	private String modifiedTime;
+	private String codeId;
+	private String codeName;
 	
-	public String getUserID() {
-		return userID;
+	public String getCodeName() {
+		return codeName;
 	}
 
-	public void setUserID(String userID) {
-		this.userID = userID;
+	public void setCodeName(String codeName) {
+		this.codeName = codeName;
+	}
+
+	public String getCodeId() {
+		return codeId;
+	}
+
+	public void setCodeId(String codeId) {
+		this.codeId = codeId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getUserPw() {
@@ -120,5 +138,3 @@ public class UserVo {
 		this.modifiedTime = modifiedTime;
 	}
 }
-
- 
