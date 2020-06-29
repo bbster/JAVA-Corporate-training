@@ -70,8 +70,8 @@
    	FROM 
    	  USER_INFO 
    	WHERE 
-   	  USER_ID = ${userId} 
+   	  USER_ID = #{userId} 
    	AND
-   	  USER_PW = ${userPw}
+   	  USER_PW = #{userPw}
    </select>
 </mapper>

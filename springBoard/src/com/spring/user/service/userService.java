@@ -12,7 +12,8 @@ public interface userService {
 
 	public int userJoin(UserVo userVo) throws Exception;
 
-	public UserVo userLogin(String userId, String userPw) throws Exception;
+	public boolean userLogin(String userId, String userPw) throws Exception;
 	
 	public List<ComCodeVo> codePhoneList() throws Exception;
+
 }

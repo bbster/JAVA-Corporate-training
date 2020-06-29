@@ -106,16 +106,43 @@
 	</form>
 </body>
 <script>
+// validation 정규식
+
+var numCheck = /^[0-9]{4}$/;
+var nameCheck = /[a-zA-Z가-힝]/; 
+
 $j(document).ready(function(){
+	$j("#userId").blur(function(){
+		var userId = $j("#userId").val();
+		if(!idCheck.test($j("#userId").val())){
+			alert("잘못된 아이디 형태입니다. 5~10자의 영문자, 숫자");
+		}
+		else{
+			type : 'POST'
+			,data : {'userId':userId}
+			,url : '/idCheck'
+			,success : function(data){
+				if(data) {
+					alert("사용할수 있는 아이디입니다.");
+				}
+				else{
+					alert("사용할수 없는 아이디입니다.");
+					return false;
+				}
+			}
+		}
+	}
+)};
+	
 	$j.ajax({
-		url : "/user/joinAction.do"
+		url : "/user/joinAction"
 		, dataType : "json"
 		, type : "POST"
 		, data : param
-		, success : 
+		, success : function(data)
 		{
 			alert("회원가입 완료");
-			location.href = "/user/login.do";
+			location.href = "/board/boardList.do";
 		}
 	});
 });

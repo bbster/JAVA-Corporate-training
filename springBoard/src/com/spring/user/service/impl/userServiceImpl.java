@@ -21,17 +21,22 @@ public class userServiceImpl implements userService{
 	
 	@Override
 	public int userJoin(UserVo userVo) throws Exception {
+		
 		return userDao.userJoin(userVo);
 	}
 
 	@Override
-	public UserVo userLogin(String userId, String userPw) throws Exception {
-		UserVo userVo = new UserVo();
-		
-		userVo.setUserId(userId);
-		userVo.setUserPw(userPw);
-		
-		return userDao.userLogin(userVo);
+	public boolean userLogin(String userId, String userPw) throws Exception {
+		String user = userDao.userLogin(userId, userPw);
+		if(user == false) {
+			if(userId.equals(user.getUserId()) && userPw.equals(user.getUserPw())) {
+				return userDao.userLogin(userId, userPw);
+			}
+			else {
+				return false;
+			}
+		}
+		return userDao.userLogin(userId, userPw);
 	}
 	
 	@Override

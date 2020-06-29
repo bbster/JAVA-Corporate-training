@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,17 +62,30 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/users/userLogin.do", method = RequestMethod.GET)
-	public String userLogin(HttpSession session, UserVo userVo, Locale locale
+	public String userLogin(Locale locale) throws Exception{
+
+		return "/users/userLogin";
+	}
+	
+	@RequestMapping(value = "/users/userLoginAction", method = RequestMethod.POST)
+	@ResponseBody
+	public String userLoginAction(HttpSession session, UserVo userVo, Locale locale
 			, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-//		UserVO userInfo = userService.selectUserView(userVo);
+		String userId = request.getParameter("userId");
+		String userPw = request.getParameter("userPw");
+		
+		System.out.println("User ID : " + userId);
+		System.out.println("User PW : " + userPw);
+		
+		userService.userLogin(userId, userPw);
 		
 		session = request.getSession();
 		
-		session.setAttribute("userId", userVo.getUserId());     // userId값 저장   ${userId}
-		session.setAttribute("userName", userVo.getUserName()); // userName값 저장 ${userName}
+		session.setAttribute("userId", userVo.getUserId());
+		session.setAttribute("userName", userVo.getUserName()); 
 		
-		return "/users/userLogin";
+		return "/board/boardList.do";
 	}
 	
 	@RequestMapping(value = "/users/userJoinAction", method = RequestMethod.POST)
@@ -81,8 +95,24 @@ public class UserController {
 		
 		userService.userJoin(userVo);
 		
+		String userId = request.getParameter("userId");
+		String userPw = request.getParameter("userPw");
+		String userName = request.getParameter("userName");
+		String userPhone1 = request.getParameter("userPhone1");
+		String userPhone2 = request.getParameter("userPhone2");
+		String userPhone3 = request.getParameter("userPhone3");
+		String userAddr1 = request.getParameter("userAddr1");
+		String userAddr2 = request.getParameter("userAddr2");
+		String userCompany = request.getParameter("userCompany");
+		
 		model.addAttribute("userId", userVo.getUserId());
+		model.addAttribute("userPw", userVo.getUserPw());
 		model.addAttribute("userName", userVo.getUserName());
+		model.addAttribute("userPhone1", userVo.getUserPhone1());
+		model.addAttribute("userPhone2", userVo.getUserPhone2());
+		model.addAttribute("userPhone3", userVo.getUserPhone3());
+		model.addAttribute("userAddr1", userVo.getUserAddr1());
+		model.addAttribute("userAddr2", userVo.getUserAddr2());
 		model.addAttribute("userCompany", userVo.getUserCompany());
 		
 		return "redirect:/users/userLogin";

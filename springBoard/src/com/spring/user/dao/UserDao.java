@@ -8,7 +8,7 @@ public interface UserDao {
 
 	public int userJoin(UserVo userVo) throws Exception;
 	
-	public UserVo userLogin(UserVo userVo) throws Exception;
+	public boolean userLogin(String userId, String userPw) throws Exception;
 	
 	public List<ComCodeVo> codePhoneList() throws Exception;
 

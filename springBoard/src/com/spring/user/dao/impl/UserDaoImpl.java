@@ -18,23 +18,23 @@ import com.sun.media.jfxmedia.logging.Logger;
 
 @Repository
 public class UserDaoImpl implements UserDao{
-	
+
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	@Override
 	public int userJoin(UserVo userVo) throws SQLException {
 		return sqlSession.insert("users.userJoin", userVo);
 	}
 
 	@Override
-	public UserVo userLogin(UserVo userVo) throws Exception {
-		return sqlSession.selectOne("users.userLogin", userVo);
+	public boolean userLogin(String userId, String userPw) throws Exception {
+		return sqlSession.selectOne("users.userLogin", userId);
 	}
-	
+
 	@Override
 	public List<ComCodeVo> codePhoneList() throws Exception {
 		return sqlSession.selectList("users.codePhoneList");
 	}
-	
+
 }
