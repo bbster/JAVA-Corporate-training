@@ -50,7 +50,7 @@
         (#{userId}
          ,#{userPw}
          ,#{userName}
-         ,#{codeName}
+         ,(SELECT CODE_NAME FROM USER_INFO, COM_CODE WHERE USER_PHONE1 = CODE_ID)
          ,#{userPhone2}
          ,#{userPhone3}
          ,#{userAddr1}
@@ -63,10 +63,22 @@
         )
    </select>
    
+   <select id="userLoginCheck" resultType="String">
+      SELECT
+       USER_NAME
+      FROM
+       USER_INFO
+      WHERE
+       USER_ID = #{userId}
+      AND
+       USER_PW = #{userPw}
+   </select>
+   
    <select id="userLogin" parameterType="com.spring.user.vo.UserVo" resultMap="UserVo">
    	SELECT 
    	  USER_ID
-   	  ,USER_PW 
+   	  ,USER_NAME
+   	  ,USER_COMPANY
    	FROM 
    	  USER_INFO 
    	WHERE 

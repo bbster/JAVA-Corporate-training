@@ -12,12 +12,19 @@
 <body>
 <table align="center">
 <tr>
-	<td>
-		<a href="/users/userLogin.do">Login</a>
-	</td>
-	<td>
-		<a href ="/users/userJoin.do">Join</a>
-	</td>
+	<c:if test="${sessionScope.userId != null }">
+		<td>
+			<h3>${sessionScope.userName}</h3>
+		</td>
+	</c:if>
+	<c:if test="${sessionScope.userId == null }">
+		<td>
+			<a href="/users/userLogin.do">Login</a>
+		</td>
+		<td>
+			<a href ="/users/userJoin.do">Join</a>
+		</td>
+	</c:if>
 </tr>
 </table>
 <table  align="center">
@@ -64,6 +71,11 @@
 		<td align="right">
 			<a href ="/board/boardWrite.do">글쓰기</a>
 		</td>
+		<c:if test="${sessionScope.userId != null }">
+		<td>
+			<a href="${path}/users/userLogout.do">로그아웃</a>
+		</td>
+		</c:if>
 	</tr>
 </table>
 <table align="center">

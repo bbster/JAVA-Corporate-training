@@ -84,6 +84,7 @@
 						Writer
 						</td>
 						<td>
+						<text>${user.userName}</text>
 						</td>
 					</tr>
 				</table>

@@ -18,6 +18,13 @@
     	<result property="codeType" 	column="CODE_TYPE"/>
     </resultMap>
     
+    <!-- user  -->
+    <resultMap type="com.spring.user.vo.UserVo" id="UserVo">
+		<result property="userId" 		column="USER_ID"/>
+    	<result property="userName" 	column="USER_NAME"/>
+    </resultMap>
+    
+    
    <select id="codeNameList" parameterType="com.spring.board.vo.ComCodeVo" resultMap="ComCodeVo">
    		SELECT
    			CODE_ID
@@ -59,6 +66,7 @@
 					<foreach collection="boardTypeParams" item="board_type" open="(" close=")" separator=",">
 						#{board_type}
 					</foreach>
+					
 				</if>
 			</trim>
 		)
@@ -81,6 +89,7 @@
 		FROM
 			BOARD
     	WHERE 	BOARD_TYPE = #{boardType}
+    	AND     BOARD_NUM = #{boardNum}
     </select>	
     
     <select id="boardInsert" parameterType="com.spring.board.vo.BoardVo">
@@ -101,7 +110,7 @@
 	    FROM BOARD, COM_CODE)
         ,#{boardTitle}
         ,#{boardComment}
-        ,'SYSTEM'
+        ,#{userName}
         ,TO_CHAR(SYSDATE)
         ,'SYSTEM'
         ,TO_CHAR(SYSDATE)

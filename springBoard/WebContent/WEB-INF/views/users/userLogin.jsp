@@ -8,7 +8,7 @@
 </head>
 <title>로그인</title>
 <body>
-	<form id="loginForm" action="/users/userLoginAction" method="post">
+	<form id="loginForm" name="loginForm" action="/users/userLoginCheck.do" method="post">
 		<table align="center">
 			<tr>
 				<th colspan="2" align="center">
@@ -29,6 +29,16 @@
 				<td colspan="2">
 					<button style="float:left"  onclick="location.href='/board/boardList.do'" type="button">목록</button>
 					<button style="float:left" type="button" id="loginBtn">로그인</button>
+					<c:if test="${msg == 'faled'}">
+						<div style="color: red">
+							아이디 또는 비밀번호가 일치하지 않습니다.
+						</div>
+					</c:if>
+					<c:if test="${msg == 'logout' }">
+						<div style="color: red">
+							로그아웃 되었습니다.
+						</div>
+					</c:if>
 				</td>
 			</tr>
 		</table>
@@ -38,31 +48,20 @@
 <script>
 $j(document).ready(function(){
 	$j('#loginBtn').on('click',function(){
-		if ($j('#userId').val() == ''){
-			alert("아이디를 입력해주세요")
-			return false;
-		} else if ($j('#userPw').val() == ''){
-			alert("비밀번호를 입력해주세요")
-			return false;
+		var userId = $j("#userId").val();
+		var userPw = $j("#userPw").val();
+		if(userId == ""){
+			alert("아이디를 입력하세요");
+			$j("#userId").focus();
+			return;
 		}
-		$j('#loginForm').submit();
-	});
-	
-	$j("#loginBtn").on("click",function(){
-		var $formData = $j("form[id=loginForm]");
-		var param = $formData.serialize();
-	
-		$j.ajax({
-		    url : "/users/userLoginAction",
-	    	dataType: "json",
-	    	type: "POST",
-	    	data : param,
-	    	success: function(data)
-	    	{
-				alert("로그인 성공");
-				location.href = "/board/boardList.do?pageNo=";
-	    	}
-		});
+		else if(userPw == ""){
+			alert("비밀번호를 입력하세요.");
+			$j("#userPw").focus();
+			return;
+		}
+		document.loginForm.action="${path}/users/userLoginCheck.do"
+		document.loginForm.submit();
 	});
 });
 </script>

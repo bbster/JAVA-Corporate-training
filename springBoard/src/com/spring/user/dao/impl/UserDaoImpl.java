@@ -3,6 +3,8 @@ package com.spring.user.dao.impl;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.impl.Log4jLoggerFactory;
@@ -28,9 +30,18 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public boolean userLogin(String userId, String userPw) throws Exception {
-		return sqlSession.selectOne("users.userLogin", userId);
+	public boolean userLoginCheck(UserVo userVo) throws Exception {
+		String user = sqlSession.selectOne("users.userLoginCheck", userVo);
+		return (user == null) ? false : true;
 	}
+	
+	@Override
+	public UserVo userLogin(UserVo userVo) throws Exception{
+		return sqlSession.selectOne("users.userLogin", userVo);
+	}
+	
+	@Override
+	public void userLogout(HttpSession session) {}
 
 	@Override
 	public List<ComCodeVo> codePhoneList() throws Exception {

@@ -22,7 +22,7 @@ $j(document).ready(function(){
 	    	location.href = href;
 		  });
 	});
-}
+};
 
 </script>
 <body>

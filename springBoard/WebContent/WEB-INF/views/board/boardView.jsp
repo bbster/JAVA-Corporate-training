@@ -13,16 +13,15 @@ var message = "${msg}";
 if(message){
 	alert(message);
 };
-$j(document).ready(function(){
 
-	
+$j(document).ready(function(){
 	$j(function() {
-	  	$(".movie_list").on("click", function() {
-	    	var href=$(this).data("href");
+	  	$j(".movie_list").on("click", function() {
+	    	var href=$j(this).data("href");
 	    	location.href = href;
 		  });
 	});
-}
+});
 
 </script>
 <body>

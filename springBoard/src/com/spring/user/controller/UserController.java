@@ -26,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,7 @@ import com.spring.board.HomeController;
 import com.spring.board.vo.ComCodeVo;
 import com.spring.user.vo.UserVo;
 import com.spring.user.service.userService;
+import com.spring.board.service.boardService;
 
 import sun.invoke.empty.Empty;
 
@@ -47,6 +49,9 @@ public class UserController {
 	
 	@Autowired 
 	userService userService;
+	
+	@Autowired
+	boardService boardService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -67,33 +72,37 @@ public class UserController {
 		return "/users/userLogin";
 	}
 	
-	@RequestMapping(value = "/users/userLoginAction", method = RequestMethod.POST)
+	@RequestMapping(value = "/users/userLoginCheck.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String userLoginAction(HttpSession session, UserVo userVo, Locale locale
-			, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public ModelAndView userLoginAction(@ModelAttribute UserVo userVo, HttpSession session, Locale locale
+			, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		String userId = request.getParameter("userId");
-		String userPw = request.getParameter("userPw");
-		
-		System.out.println("User ID : " + userId);
-		System.out.println("User PW : " + userPw);
-		
-		userService.userLogin(userId, userPw);
-		
-		session = request.getSession();
-		
-		session.setAttribute("userId", userVo.getUserId());
-		session.setAttribute("userName", userVo.getUserName()); 
-		
-		return "/board/boardList.do";
+		boolean result = userService.userLoginCheck(userVo, session);
+		ModelAndView mav = new ModelAndView();
+		if(result == true) {
+			mav.setViewName("redirect:/board/boardList.do");
+			mav.addObject("msg", "success");
+		}
+		else {
+			mav.setViewName("users/userLogin");
+			mav.addObject("msg", "failed");
+		}
+		return mav;
 	}
 	
-	@RequestMapping(value = "/users/userJoinAction", method = RequestMethod.POST)
+	@RequestMapping("users/userLogout.do")
+	public ModelAndView userLogout(HttpSession session) throws Exception {
+		userService.userLogout(session);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/board/boardList.do");
+		mav.addObject("msg", "logout");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/users/userJoinAction.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String userJoinAction(HttpSession session, UserVo userVo, Locale locale
 			, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		
-		userService.userJoin(userVo);
 		
 		String userId = request.getParameter("userId");
 		String userPw = request.getParameter("userPw");
@@ -105,10 +114,22 @@ public class UserController {
 		String userAddr2 = request.getParameter("userAddr2");
 		String userCompany = request.getParameter("userCompany");
 		
+		List<ComCodeVo> codeList = new ArrayList<ComCodeVo>();
+		codeList = boardService.codeNameList();
+		
+		System.out.println("userId : " + userId);
+		System.out.println("userPw : " + userPw);
+		System.out.println("userName : " + userName);
+		System.out.println("userPhone1 : " + userPhone1);
+		System.out.println("userPhone2 : " + userPhone2);
+		System.out.println("userPhone3 : " + userPhone3);
+		
+		userService.userJoin(userVo);
+		
 		model.addAttribute("userId", userVo.getUserId());
 		model.addAttribute("userPw", userVo.getUserPw());
 		model.addAttribute("userName", userVo.getUserName());
-		model.addAttribute("userPhone1", userVo.getUserPhone1());
+		model.addAttribute("userPhone1", userVo.getCodeName());
 		model.addAttribute("userPhone2", userVo.getUserPhone2());
 		model.addAttribute("userPhone3", userVo.getUserPhone3());
 		model.addAttribute("userAddr1", userVo.getUserAddr1());

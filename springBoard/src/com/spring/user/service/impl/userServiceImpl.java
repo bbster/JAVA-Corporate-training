@@ -2,6 +2,8 @@ package com.spring.user.service.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,6 @@ import com.spring.user.service.userService;
 import com.spring.user.vo.UserVo;
 
 @Service
-@Repository
 public class userServiceImpl implements userService{
 	
 	@Autowired
@@ -26,18 +27,27 @@ public class userServiceImpl implements userService{
 	}
 
 	@Override
-	public boolean userLogin(String userId, String userPw) throws Exception {
-		String user = userDao.userLogin(userId, userPw);
-		if(user == false) {
-			if(userId.equals(user.getUserId()) && userPw.equals(user.getUserPw())) {
-				return userDao.userLogin(userId, userPw);
-			}
-			else {
-				return false;
-			}
+	public boolean userLoginCheck(UserVo userVo, HttpSession session) throws Exception {
+		boolean result = userDao.userLoginCheck(userVo);
+		if(result) {
+			UserVo addSession = userLogin(userVo);
+			
+			session.setAttribute("userId", addSession.getUserId());
+			session.setAttribute("userName", addSession.getUserName());
 		}
-		return userDao.userLogin(userId, userPw);
+		return result;
 	}
+	
+	@Override
+	public UserVo userLogin(UserVo userVo) throws Exception{
+		return userDao.userLogin(userVo);
+	}
+	
+	@Override
+	public void userLogout(HttpSession session) throws Exception{
+		session.invalidate();
+	}
+	
 	
 	@Override
 	public List<ComCodeVo> codePhoneList() throws Exception {
