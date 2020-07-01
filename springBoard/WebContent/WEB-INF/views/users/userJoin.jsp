@@ -107,13 +107,75 @@
 </body>
 <script>
 // validation 정규식
-
-var numCheck = /^[0-9]{4}$/;
+var idCheck = /[A-Za-z\d]{5,10}$/;
+var pwCheck = /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
+var phoneCheck = /^[0-9]{4}$/;
 var nameCheck = /[a-zA-Z가-힝]/; 
+var postCheck = /^[0-9]{3}-[0-9]{3}$/;
 
 $j(document).ready(function(){
+	$j("#userId").keyup(function(){
+		if(!idCheck.test($j('#userId').val())){
+			alert("5~10자의 영문 소문자, 숫자만 사용 가능합니다.");
+			return false;
+		}
+		
+	});
+	
+	$j("#userPw").keyup(function(){		
+		if($j("#userPw").val() != ''){
+			if(!pwCheck.test($j('#userPw').val())){
+				alert("6~12자 영문 대/소문자, 숫자, 특수문자를 사용하세요");
+				return false;
+			}
+		}
+	});
+	
+	$j("#userPwCheck").keyup(function(){
+		if($j("#userPwCheck").val() != $j("#userPwCheck").val()){
+			alert("비밀번호가 일치하지 않습니다.");
+			return false;
+		}
+	});
+	
+	$j("#userName").keyup(function(){
+		if($j('#userName').val() != ''){
+			if(!nameCheck.test($j('#userName').val())){
+				alert("한글/영문만 입력 가능합니다.");
+				return false;
+			}
+		}
+	});
+	
+	$j("#userPhone2").keyup(function(){
+		if($j('#userPhone2').val() != ''){
+			if(!phoneCheck.test($j('#userPhone2').val())){
+				alert("4자리 숫자로 입력해주세요.")
+				return false;
+			}
+		}
+	});
+	
+	$j("#userPhone3").keyup(function(){
+		if($j('#userPhone3').val() != ''){
+			if(!phoneCheck.test($j('#userPhone3').val())){
+				alert("4자리 숫자로 입력해주세요.")
+				return false;
+			}
+		}
+	});
+	
+	$j("#userAddr1").keyup(function(){
+		if($j('#userAddr1').val() != ''){
+			if(!postCheck.test($j('#userAddr1').val())){
+				alert("xxx-xxx 형식으로 입력해주세요.");
+				return false;
+			}
+		}
+	});
+	
 	$j('#joinBtn').on('click',function(){
-		document.joinForm.action="${path}/users/userJoinAction.do"
+		document.joinForm.action="${path}/users/userJoinAction.do";
 		document.joinForm.submit();
 	});
 });

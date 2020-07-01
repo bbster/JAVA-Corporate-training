@@ -110,7 +110,7 @@
 	    FROM BOARD, COM_CODE)
         ,#{boardTitle}
         ,#{boardComment}
-        ,#{userName}
+        ,'SYSTEM'
         ,TO_CHAR(SYSDATE)
         ,'SYSTEM'
         ,TO_CHAR(SYSDATE)

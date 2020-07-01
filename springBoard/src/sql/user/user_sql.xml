@@ -50,12 +50,12 @@
         (#{userId}
          ,#{userPw}
          ,#{userName}
-         ,(SELECT CODE_NAME FROM USER_INFO, COM_CODE WHERE USER_PHONE1 = CODE_ID)
+         ,(SELECT CODE_NAME FROM USER_INFO, COM_CODE WHERE CODE_ID = #{userPhone1})
          ,#{userPhone2}
          ,#{userPhone3}
          ,#{userAddr1}
          ,#{userAddr2}
-         ,#{userCompnay}
+         ,#{userCompany}
          ,'SYSTEM'
          ,TO_CHAR(SYSDATE)
          ,'SYSTEM'
