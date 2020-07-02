@@ -45,12 +45,16 @@
          ,USER_ADDR1
          ,USER_ADDR2
          ,USER_COMPANY
+         ,CREATOR
+         ,CREATE_TIME
+         ,MODIFIER
+         ,MODIFIED_TIME
         )
         VALUES
         (#{userId}
          ,#{userPw}
          ,#{userName}
-         ,(SELECT CODE_NAME FROM USER_INFO, COM_CODE WHERE CODE_ID = #{userPhone1})
+         ,(SELECT CODE_NAME FROM COM_CODE WHERE CODE_ID = #{userPhone1})
          ,#{userPhone2}
          ,#{userPhone3}
          ,#{userAddr1}
@@ -85,5 +89,14 @@
    	  USER_ID = #{userId} 
    	AND
    	  USER_PW = #{userPw}
+   </select>
+   
+   <select id="userDuplication" resultType="com.spring.user.vo.UserVo">
+   	SELECT
+   	   USER_ID
+   	FROM
+   	   USER_INFO
+   	WHERE
+   	   USER_ID = #{userId}
    </select>
 </mapper>

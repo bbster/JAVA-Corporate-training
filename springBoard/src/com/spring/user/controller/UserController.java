@@ -114,16 +114,6 @@ public class UserController {
 		String userAddr2 = request.getParameter("userAddr2");
 		String userCompany = request.getParameter("userCompany");
 		
-		List<ComCodeVo> codeList = new ArrayList<ComCodeVo>();
-		codeList = boardService.codeNameList();
-		
-		System.out.println("userId : " + userId);
-		System.out.println("userPw : " + userPw);
-		System.out.println("userName : " + userName);
-		System.out.println("userPhone1 : " + userPhone1);
-		System.out.println("userPhone2 : " + userPhone2);
-		System.out.println("userPhone3 : " + userPhone3);
-		
 		userService.userJoin(userVo);
 		
 		model.addAttribute("userId", userVo.getUserId());

@@ -10,7 +10,7 @@
 회원가입
 </title>
 <body>
-	<form id="joinForm" name="joinForm" action="/users/userJoinAction.do" method="post">
+	<form id="joinForm" name="joinForm">
 		<table align="center">
 			<tr>
 				<td align="left">
@@ -26,7 +26,8 @@
 							</td>
 							<td width="280">
 								<input type="text" id="userId" name="userId">
-								<button type="button" id="btnConfirm">중복확인</button>
+								<button type="button" id="btnConfirm">중복확인</button><br>
+								<small id="userIdCheck"></small>
 							</td>
 						</tr>
 						<tr>
@@ -107,19 +108,22 @@
 </body>
 <script>
 // validation 정규식
-var idCheck = /[A-Za-z\d]{5,10}$/;
-var pwCheck = /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
-var phoneCheck = /^[0-9]{4}$/;
-var nameCheck = /[a-zA-Z가-힝]/; 
+var idCheck = /^[a-z_-]+[a-z0-9_-]{6,12}$/g;
+var pwCheck = /^(?=.*[a-zA-Z]{1,11})(?=.*[0-9]{1,11}).{6,12}$/;
+var phoneCheck = /^[0-9]{1,4}$/;
+var nameCheck = /[a-zA-Zㄱ-ㅎ가-힝]/; 
 var postCheck = /^[0-9]{3}-[0-9]{3}$/;
 
 $j(document).ready(function(){
 	$j("#userId").keyup(function(){
 		if(!idCheck.test($j('#userId').val())){
-			alert("5~10자의 영문 소문자, 숫자만 사용 가능합니다.");
+			$j('#userIdCheck').text('6~12자리의 영문만 입력해주세요.')
+			/* this.value=''; */
 			return false;
 		}
-		
+		else{
+			$j('#userIdCheck').empty();
+		}
 	});
 	
 	$j("#userPw").keyup(function(){		
@@ -174,12 +178,33 @@ $j(document).ready(function(){
 		}
 	});
 	
-	$j('#joinBtn').on('click',function(){
-		document.joinForm.action="${path}/users/userJoinAction.do";
-		document.joinForm.submit();
+	$j('#joinBtn').click(function(){
+		/* document.joinForm.action="${path}/users/userJoinAction.do";
+		document.joinForm.submit(); */
+		
+		var $formData = $j('#joinForm');
+		var dataParams = $formData.serialize();
+		
+		console.log(dataParams);
+
+		$j.ajax({
+			url : "/users/userJoinAction.do"
+			, dataType : 'json'
+			, type : 'POST'
+			,data : dataParams
+			,success : function(data, textStatus, jqXHR)
+			{
+				alert("회원가입 성공");
+				location.href = "/users/userLogin.do";
+			}
+			/* ajax error 처리를 위한 기본적인 3개의 파라미터 */
+			, error : function(jqXHR, textStatus, errorThrown)
+			{
+				alert("실패 다시 시도해주세요");
+				/* location.href = "/users/userJoin.do"; */
+			}
+		});
 	});
 });
-
-
 </script>
 </html>
