@@ -21,4 +21,5 @@ public interface userService {
 	
 	public List<ComCodeVo> codePhoneList() throws Exception;
 
+	public UserVo userIdDup(String userId) throws Exception;
 }

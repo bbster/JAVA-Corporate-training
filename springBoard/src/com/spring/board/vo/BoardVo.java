@@ -10,6 +10,7 @@ public class BoardVo {
 	private String	modifier;
 	private String codeName;
 	private String codeId;
+	private String uesrName;
 	private int totalCnt;
 	
 	public BoardVo() {}
@@ -18,8 +19,14 @@ public class BoardVo {
 		this.boardTitle = boardTitle;
 		this.boardComment = boardComment;
 	}
-	
-	
+
+	public String getUesrName() {
+		return uesrName;
+	}
+
+	public void setUesrName(String uesrName) {
+		this.uesrName = uesrName;
+	}
 
 	public String getCodeId() {
 		return codeId;

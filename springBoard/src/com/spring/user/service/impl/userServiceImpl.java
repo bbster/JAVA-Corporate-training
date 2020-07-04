@@ -1,6 +1,7 @@
 package com.spring.user.service.impl;
 
 import java.util.List;
+import java.util.regex.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,8 +22,17 @@ public class userServiceImpl implements userService{
 	UserDao userDao;
 	
 	@Override
-	public int userJoin(UserVo userVo) throws Exception {
-		
+	public int userJoin(UserVo userVo) throws Exception{
+//		if(userVo.getUserId().length() < 5 || userVo.getUserId().length() > 20) {
+//			String pattern = "^[a-zA-Z]+[a-zA-Z0-9]";
+//			boolean idPattern = Pattern.matches(pattern, userVo.getUserId());
+//			boolean pwPattern = Pattern.matches(pattern, userVo.getUserPw());
+//			if(idPattern==true) {
+//				return userDao.userJoin(userVo);
+//			}else {
+//				return 0;
+//			}
+//		}
 		return userDao.userJoin(userVo);
 	}
 
@@ -52,5 +62,10 @@ public class userServiceImpl implements userService{
 	@Override
 	public List<ComCodeVo> codePhoneList() throws Exception {
 		return userDao.codePhoneList();
+	}
+
+	@Override
+	public UserVo userIdDup(String userId) throws Exception {
+		return userDao.userIdDup(userId);
 	}
 }

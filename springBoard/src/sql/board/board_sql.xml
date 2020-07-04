@@ -7,6 +7,8 @@
     	<result property="boardNum" 	column="BOARD_NUM"/>
     	<result property="boardTitle" 	column="BOARD_TITLE"/>
     	<result property="boardComment" column="BOARD_COMMENT"/>
+    	<result property="creator"      column="CREATOR"/>
+    	<result property="modifier"      column="MODIFIER"/>
     	<result property="codeId" 		column="CODE_ID"/>
     	<result property="codeName" 	column="CODE_NAME"/>
     </resultMap>
@@ -110,9 +112,9 @@
 	    FROM BOARD, COM_CODE)
         ,#{boardTitle}
         ,#{boardComment}
-        ,'SYSTEM'
+        ,#{userName}
         ,TO_CHAR(SYSDATE)
-        ,'SYSTEM'
+        ,#{userName}
         ,TO_CHAR(SYSDATE)
         )
     </select>

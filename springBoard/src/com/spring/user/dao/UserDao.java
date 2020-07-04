@@ -18,5 +18,7 @@ public interface UserDao {
 	public void userLogout(HttpSession session);
 	
 	public List<ComCodeVo> codePhoneList() throws Exception;
+	
+	public UserVo userIdDup(String userId) throws Exception;
 
 }

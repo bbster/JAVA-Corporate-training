@@ -38,6 +38,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.board.HomeController;
 import com.spring.board.vo.ComCodeVo;
+import com.spring.common.CommonUtil;
 import com.spring.user.vo.UserVo;
 import com.spring.user.service.userService;
 import com.spring.board.service.boardService;
@@ -104,28 +105,43 @@ public class UserController {
 	public String userJoinAction(HttpSession session, UserVo userVo, Locale locale
 			, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
+		HashMap<String, String> result = new HashMap<String, String>();
+		CommonUtil commonUtil = new CommonUtil();
+		
+		int resultCnt = userService.userJoin(userVo);
+		
+		result.put("success", (resultCnt > 0)?"Y":"N");
+		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
+		
+		System.out.println("callbackMsg::"+callbackMsg);
+		
+		return callbackMsg;
+	}
+	
+	@RequestMapping(value = "/users/userIdDupCheck.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int userIdDup(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
 		String userId = request.getParameter("userId");
-		String userPw = request.getParameter("userPw");
-		String userName = request.getParameter("userName");
-		String userPhone1 = request.getParameter("userPhone1");
-		String userPhone2 = request.getParameter("userPhone2");
-		String userPhone3 = request.getParameter("userPhone3");
-		String userAddr1 = request.getParameter("userAddr1");
-		String userAddr2 = request.getParameter("userAddr2");
-		String userCompany = request.getParameter("userCompany");
 		
-		userService.userJoin(userVo);
+		if(userId == null) {
+			System.out.println("userId is NULL");
+		}
+		System.out.println("USER ID : " + userId);
 		
-		model.addAttribute("userId", userVo.getUserId());
-		model.addAttribute("userPw", userVo.getUserPw());
-		model.addAttribute("userName", userVo.getUserName());
-		model.addAttribute("userPhone1", userVo.getCodeName());
-		model.addAttribute("userPhone2", userVo.getUserPhone2());
-		model.addAttribute("userPhone3", userVo.getUserPhone3());
-		model.addAttribute("userAddr1", userVo.getUserAddr1());
-		model.addAttribute("userAddr2", userVo.getUserAddr2());
-		model.addAttribute("userCompany", userVo.getUserCompany());
+		UserVo idDupCheck = userService.userIdDup(userId);
+		 
+
+		System.out.println("id Duplicate data" + idDupCheck);
 		
-		return "redirect:/users/userLogin";
+		int result = 0;
+		
+		if(idDupCheck != null) {
+			result = 1;
+		}
+		
+		System.out.println(result);
+		
+		return result;
 	}
 }

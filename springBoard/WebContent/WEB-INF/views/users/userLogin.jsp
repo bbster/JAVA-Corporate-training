@@ -53,14 +53,11 @@ $j(document).ready(function(){
 		if(userId == ""){
 			alert("아이디를 입력하세요");
 			$j("#userId").focus();
-			return;
 		}
 		else if(userPw == ""){
 			alert("비밀번호를 입력하세요.");
 			$j("#userPw").focus();
-			return;
 		}
-		document.loginForm.action="${path}/users/userLoginCheck.do"
 		document.loginForm.submit();
 	});
 });

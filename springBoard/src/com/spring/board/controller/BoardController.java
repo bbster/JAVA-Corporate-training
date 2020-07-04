@@ -124,9 +124,6 @@ public class BoardController {
 		HashMap<String, String> result = new HashMap<String, String>();
 		CommonUtil commonUtil = new CommonUtil();
 		
-		String boardType = request.getParameter("boardType");
-		System.out.println(boardType+" - Write시 type값 넘어오는지 체크");
-		
 		int resultCnt = boardService.boardInsert(boardVo);
 		
 		result.put("success", (resultCnt > 0)?"Y":"N");

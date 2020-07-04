@@ -69,34 +69,34 @@
    
    <select id="userLoginCheck" resultType="String">
       SELECT
-       USER_NAME
+      	USER_NAME
       FROM
-       USER_INFO
+      	USER_INFO
       WHERE
-       USER_ID = #{userId}
+       	USER_ID = #{userId}
       AND
-       USER_PW = #{userPw}
+       	USER_PW = #{userPw}
    </select>
    
    <select id="userLogin" parameterType="com.spring.user.vo.UserVo" resultMap="UserVo">
    	SELECT 
-   	  USER_ID
-   	  ,USER_NAME
-   	  ,USER_COMPANY
+   	  	USER_ID
+   	  	,USER_NAME
+   	  	,USER_COMPANY
    	FROM 
-   	  USER_INFO 
+   	  	USER_INFO 
    	WHERE 
-   	  USER_ID = #{userId} 
+   	  	USER_ID = #{userId} 
    	AND
-   	  USER_PW = #{userPw}
+   	  	USER_PW = #{userPw}
    </select>
    
-   <select id="userDuplication" resultType="com.spring.user.vo.UserVo">
-   	SELECT
-   	   USER_ID
-   	FROM
-   	   USER_INFO
-   	WHERE
-   	   USER_ID = #{userId}
+   <select id="userIdDup" resultType="com.spring.user.vo.UserVo" resultMap="UserVo">
+   SELECT
+   		USER_ID
+   FROM
+   		USER_INFO
+   WHERE
+   		USER_ID = #{userId}
    </select>
 </mapper>

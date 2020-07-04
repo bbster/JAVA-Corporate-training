@@ -84,7 +84,7 @@
 						Writer
 						</td>
 						<td>
-						<text>${user.userName}</text>
+						<text>${board.creator}</text>
 						</td>
 					</tr>
 				</table>

@@ -48,4 +48,8 @@ public class UserDaoImpl implements UserDao{
 		return sqlSession.selectList("users.codePhoneList");
 	}
 
+	@Override
+	public UserVo userIdDup(String userId) throws Exception {
+		return sqlSession.selectOne("users.userIdDup", userId);
+	}
 }
