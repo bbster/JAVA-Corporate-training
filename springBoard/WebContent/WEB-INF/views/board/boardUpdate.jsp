@@ -52,7 +52,7 @@ $j(document).ready(function(){
 					Writer
 					</td>
 					<td>
-					${board.creator}
+					${sessionScope.userName}
 					</td>
 				</tr>
 				<tr>

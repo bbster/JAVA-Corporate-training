@@ -29,14 +29,9 @@
 				<td colspan="2">
 					<button style="float:left"  onclick="location.href='/board/boardList.do'" type="button">목록</button>
 					<button style="float:left" type="button" id="loginBtn">로그인</button>
-					<c:if test="${msg == 'faled'}">
+					<c:if test="${msg == 'failed'}">
 						<div style="color: red">
-							아이디 또는 비밀번호가 일치하지 않습니다.
-						</div>
-					</c:if>
-					<c:if test="${msg == 'logout' }">
-						<div style="color: red">
-							로그아웃 되었습니다.
+							<script>alert("아이디 또는 비밀번호가 일치하지 않습니다.");</script>
 						</div>
 					</c:if>
 				</td>

@@ -12,7 +12,6 @@
 
 <script type="text/javascript">
 	$j(document).ready(function(){
-		
 		$j("#submit").on("click",function(){
 			var $frm = $j('.boardWrite :input');
 			var param = $frm.serialize();
@@ -84,7 +83,7 @@
 						Writer
 						</td>
 						<td>
-						<text>${board.creator}</text>
+						${sessionScope.userName}
 						</td>
 					</tr>
 				</table>

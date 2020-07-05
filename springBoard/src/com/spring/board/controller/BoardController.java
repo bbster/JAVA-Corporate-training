@@ -10,6 +10,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.lang.*;
 
@@ -119,11 +120,12 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board/boardWriteAction.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String boardWriteAction(Model model, Locale locale, BoardVo boardVo, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String boardWriteAction(HttpSession session, Model model, Locale locale, BoardVo boardVo, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		HashMap<String, String> result = new HashMap<String, String>();
 		CommonUtil commonUtil = new CommonUtil();
-		
+		System.out.println(session.getAttribute("userId"));
+		System.out.println(session.getAttribute("userName"));
 		int resultCnt = boardService.boardInsert(boardVo);
 		
 		result.put("success", (resultCnt > 0)?"Y":"N");

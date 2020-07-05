@@ -10,7 +10,7 @@ public class BoardVo {
 	private String	modifier;
 	private String codeName;
 	private String codeId;
-	private String uesrName;
+	private String userName;
 	private int totalCnt;
 	
 	public BoardVo() {}
@@ -20,12 +20,12 @@ public class BoardVo {
 		this.boardComment = boardComment;
 	}
 
-	public String getUesrName() {
-		return uesrName;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUesrName(String uesrName) {
-		this.uesrName = uesrName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getCodeId() {

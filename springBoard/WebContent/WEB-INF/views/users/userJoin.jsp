@@ -78,7 +78,8 @@
 								postNo
 							</td>
 							<td>
-								<input type="tel" id="userAddr1" name="userAddr1" pattern="[0-9]{3}-[0-9]{3}">
+								<input type="tel" id="userAddr1" name="userAddr1" pattern="[0-9]{3}-[0-9]{3}"><br>
+								<small id="userAddr1Sub"></small>
 							</td>
 						</tr>
 						<tr>
@@ -114,7 +115,7 @@ var idCheck = /[a-zA-Z]+[a-zA-Z0-9_-]{5,20}$/g;
 var pwCheck = /^[a-zA-Z]+[a-zA-Z0-9_-]{6,12}$/g;	
 var phoneCheck = /^[0-9]{1,4}$/;
 var korCheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힝]/; 
-var postCheck = /^[0-9]{3}/;
+var postCheck = /^\d{3}-\d{3}$/;
 
 $j(document).ready(function(){
 	$j('#joinBtn').attr('disabled','disabled');
@@ -129,7 +130,6 @@ $j(document).ready(function(){
 			return false;
 		}
 		else{
-			/* 글 작성 내용 지우기 */
 			$j('#userIdCheck').empty();
 		}
 		
@@ -154,23 +154,40 @@ $j(document).ready(function(){
 				$j('#userPwCheckSub').attr('style','color:#B70000');
 				$j('#userPwCheckSub').text('6~12자리 영문과 숫자로만 조합해서 입력해주세요.');
 				return false;
+			}else{
+				$j('#userPwCheckSub').empty();
 			}
-			else{
-				$j('#userPw').empty();
-			}
-			
-			if($j('#userPwCheck').val() != ''){
-				if($j('#userPwCheck').val() == $j('#userPw').val()){
-					$j('#userPwCheckSub2').attr('style','color:#008000');
-					$j('#userPwCheckSub2').text("비밀번호가 일치합니다!");
-					return false;
-				}
-				else{
-					$j('#userPwSub2').empty();
-				}
+		
+// 		if($j('#userPw').val().toString().length < 6){
+// 	 			$j('#userPwCheckSub').attr('style','color:#B70000');
+// 				$j('#userPwCheckSub').text('6~12자리 영문과 숫자로만 조합해서 입력해주세요.');
+// 				return false;
+// 			}
+// 	 		else if($j('#userPw').val().toString().length > 12){
+// 				$j('#userPwCheckSub').attr('style','color:#B70000');
+// 				$j('#userPwCheckSub').text('6~12자리 영문과 숫자로만 조합해서 입력해주세요.');
+// 				this.value='';
+// 				return false;
+// 			} 
+// 			else {
+// 				$j('#userPwCheckSub').empty();
+// 			}
+		}
+	});
+	
+	$j("#userPwCheck").keyup(function(){
+		if($j('#userPwCheck').val() != ''){
+			if($j('#userPwCheck').val() == $j('#userPw').val()){
+				$j('#userPwCheckSub2').attr('style','color:#008000');
+				$j('#userPwCheckSub2').text("비밀번호가 일치합니다!");
+				return false;
+			}else{
+				$j('#userPwCheckSub2').attr('style','color:#B70000');
+				$j('#userPwCheckSub2').text("비밀번호가 일치하지 않습니다.");
 			}
 		}
 	});
+	
 	
 	$j("#userName").keyup(function(){
 		if($j('#userName').val() != ''){
@@ -211,6 +228,7 @@ $j(document).ready(function(){
 	});
 
 	$j("#userPhone3").keyup(function(){
+		
 		if($j('#userPhone3').val() != ''){
 			if(!phoneCheck.test($j('#userPhone3').val())){
 				$j('#userPhoneSub').attr('style','color:#B70000');
@@ -223,10 +241,24 @@ $j(document).ready(function(){
 		}
 	});
 	
-	$j("#userAddr1").keyup(function(){
+	$j("#userAddr1").keypress(function(){
+		var insertHyphen = /^[0-9]{3}$/;
+		if(insertHyphen.test($j('#userAddr1').val())){
+			this.value=$j("#userAddr1").val()+'-';
+		}
+	});
+	
+	$j("#userAddr1").blur(function(){
 		if($j('#userAddr1').val() != ''){
+			console.log($j('#userAddr1').val());
 			if(!postCheck.test($j('#userAddr1').val())){
+				$j('#userAddr1Sub').attr('style','color:#B70000');
+				$j('#userAddr1Sub').text('xxx-xxx 형태의 숫자만 입력해주세요.');
+				this.value='';
 				return false;
+			}
+			else{
+				$j("#userAddr1Sub").empty();
 			}
 		}
 	});
@@ -268,27 +300,31 @@ $j(document).ready(function(){
 		
 		if($j('#userId').val().toString().length > 4 && $j('#userId').val().toString().length < 21
 				&& $j('#userPw').val().toString().length > 4 && $j('#userPw').val().toString().length < 21){
-			if($j('#userPwCheck').val().toString().length > 4 && $j('#userPwCheck').val().toString().length < 21
+			if($j('#userPwCheck').val().toString().length > 5 && $j('#userPwCheck').val().toString().length < 13
 					&& $j('#userPwCheck').val() == $j('#userPw').val()){
 				if($j('#userName').val().toString().length > 3 && $j('#userName').val().toString().length < 6){
 					if($j('#userPhone2').val().toString().length == 4 && $j('#userPhone3').val().toString().length == 4){
-						$j.ajax({
-							url : "/users/userJoinAction.do"
-							, dataType : 'json'
-							, type : 'POST'
-							, data : dataParams
-							,success : function(data, textStatus, jqXHR)
-							{
-								alert("회원가입 성공");
-								location.href = "/users/userLogin.do";
-							}
-							/* ajax error 처리를 위한 기본적인 3개의 파라미터 */
-							, error : function(jqXHR, textStatus, errorThrown)
-							{
-								alert("실패");
-								/* location.href = "/users/userJoin.do"; */
-							}
-						});
+						if($j('#userAddr1').val().toString().length == 7){
+							$j.ajax({
+								url : "/users/userJoinAction.do"
+								, dataType : 'json'
+								, type : 'POST'
+								, data : dataParams
+								,success : function(data, textStatus, jqXHR)
+								{
+									alert("회원가입 성공");
+									location.href = "/users/userLogin.do";
+								}
+								/* ajax error 처리를 위한 기본적인 3개의 파라미터 */
+								, error : function(jqXHR, textStatus, errorThrown)
+								{
+									alert("실패");
+									/* location.href = "/users/userJoin.do"; */
+								}
+							});
+						}else{
+							alert("우편번호 형식이 맞지 않습니다.");
+						}
 					}else{
 						alert("Phone 입력값이 잘못되었습니다. xxxx - xxxx 형태로 입력해주세요.")
 					}
@@ -296,7 +332,7 @@ $j(document).ready(function(){
 					alert("유저네임 형식이 맞지않습니다.")
 				}
 			}else{
-				alert("패스워드가 동일하지 않습니다.")
+				alert("패스워드 형식이 맞지 않습니다.")
 			}
 		}else{
 			alert("아이디 패스워드 형식이 맞지 않습니다.");

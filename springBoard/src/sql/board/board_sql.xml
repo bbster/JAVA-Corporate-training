@@ -11,6 +11,7 @@
     	<result property="modifier"      column="MODIFIER"/>
     	<result property="codeId" 		column="CODE_ID"/>
     	<result property="codeName" 	column="CODE_NAME"/>
+    	<result property="userName" 	column="CREATOR"/>
     </resultMap>
     
     <!-- checkbox value -->
@@ -88,6 +89,7 @@
 			,BOARD_NUM
 			,BOARD_TITLE
 			,BOARD_COMMENT
+			,CREATOR
 		FROM
 			BOARD
     	WHERE 	BOARD_TYPE = #{boardType}
@@ -124,6 +126,7 @@
 		SET
 			BOARD_TITLE 	= #{boardTitle}
 			,BOARD_COMMENT	= #{boardComment}
+			,MODIFIER       = #{userName}
        		,MODIFIED_TIME  = TO_CHAR(SYSDATE)
     	WHERE 	BOARD_TYPE = #{boardType}
     	AND 	BOARD_NUM  = #{boardNum}
