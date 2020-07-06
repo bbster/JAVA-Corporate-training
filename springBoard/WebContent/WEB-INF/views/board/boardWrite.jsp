@@ -83,7 +83,7 @@
 						Writer
 						</td>
 						<td>
-						${sessionScope.userName}
+						<text>${sessionScope.userName}</text>
 						</td>
 					</tr>
 				</table>

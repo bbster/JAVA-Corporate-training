@@ -124,8 +124,14 @@ public class BoardController {
 		
 		HashMap<String, String> result = new HashMap<String, String>();
 		CommonUtil commonUtil = new CommonUtil();
-		System.out.println(session.getAttribute("userId"));
+		
 		System.out.println(session.getAttribute("userName"));
+		String boardCreator = (String)session.getAttribute("userName");
+		System.out.println("UserName DATA : " + boardCreator);
+		boardVo.setCreator(boardCreator);
+		System.out.println("boardVo getCreator " + boardVo.getCreator());
+		
+		
 		int resultCnt = boardService.boardInsert(boardVo);
 		
 		result.put("success", (resultCnt > 0)?"Y":"N");
@@ -137,7 +143,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/board/boardDelete", method = RequestMethod.GET) 
-	public String boardDelete(@RequestParam("boardNum")int boardNum, RedirectAttributes redirectAttributes) throws Exception{
+	public String boardDelete(@RequestParam("boardNum")int boardNum, RedirectAttributes redirectAttributes
+			, HttpServletRequest request) throws Exception{
+		
 		int status = boardService.boardDelete(boardNum);
 		
 		if(status >= 1) {
@@ -154,14 +162,20 @@ public class BoardController {
 	@RequestMapping(value = "/board/{boardType}/{boardNum}/boardUpdate.do", method = RequestMethod.GET)
 	public String boardUpdate(BoardVo boardVo, Model model 
 			,@PathVariable("boardType")String boardType
-			,@PathVariable("boardNum")int boardNum,
-			RedirectAttributes redirectAttributes) throws Exception{
+			,@PathVariable("boardNum")int boardNum
+			,HttpSession session ,RedirectAttributes redirectAttributes) throws Exception{
+		
+		System.out.println(session.getAttribute("userName"));
+		String boardModifier = (String)session.getAttribute("userName");
+		System.out.println("UserName DATA : " + boardModifier);
+		boardVo.setModifier(boardModifier);
+		System.out.println("boardVo getModifier " + boardVo.getModifier());
 
 		boardVo = boardService.selectBoard(boardType,boardNum);
 		model.addAttribute("boardType", boardType);
 		model.addAttribute("boardNum", boardNum);
 		model.addAttribute("board", boardVo);
-
+		
 		return "board/boardUpdate";
 	}
 	

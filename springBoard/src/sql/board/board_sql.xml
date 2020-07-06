@@ -11,7 +11,7 @@
     	<result property="modifier"      column="MODIFIER"/>
     	<result property="codeId" 		column="CODE_ID"/>
     	<result property="codeName" 	column="CODE_NAME"/>
-    	<result property="userName" 	column="CREATOR"/>
+    	<result property="userName"		column="USER_NAME"/>
     </resultMap>
     
     <!-- checkbox value -->
@@ -21,12 +21,9 @@
     	<result property="codeType" 	column="CODE_TYPE"/>
     </resultMap>
     
-    <!-- user  -->
     <resultMap type="com.spring.user.vo.UserVo" id="UserVo">
-		<result property="userId" 		column="USER_ID"/>
     	<result property="userName" 	column="USER_NAME"/>
     </resultMap>
-    
     
    <select id="codeNameList" parameterType="com.spring.board.vo.ComCodeVo" resultMap="ComCodeVo">
    		SELECT
@@ -114,9 +111,9 @@
 	    FROM BOARD, COM_CODE)
         ,#{boardTitle}
         ,#{boardComment}
-        ,#{userName}
+        ,#{creator}
         ,TO_CHAR(SYSDATE)
-        ,#{userName}
+        ,#{creator}
         ,TO_CHAR(SYSDATE)
         )
     </select>
@@ -126,8 +123,9 @@
 		SET
 			BOARD_TITLE 	= #{boardTitle}
 			,BOARD_COMMENT	= #{boardComment}
-			,MODIFIER       = #{userName}
+			,MODIFIER       = #{modifier}
        		,MODIFIED_TIME  = TO_CHAR(SYSDATE)
+       		
     	WHERE 	BOARD_TYPE = #{boardType}
     	AND 	BOARD_NUM  = #{boardNum}
     </select>
@@ -135,9 +133,7 @@
     <select id="boardDelete" parameterType="java.lang.Integer">
     	DELETE 
     	BOARD 
-    	WHERE   BOARD_NUM  = #{BOARD_NUM}
-    	AND     BOARD_TYPE = #{boardType}
-    	AND     BOARD_NUM  = #{boardNum}
-    	AND     CODE_NAME  = #{codeName}
+    	WHERE   BOARD_NUM  = #{boardNum}
+<!--     	AND     BOARD_TYPE = #{codeName} -->
     </select>
 </mapper>

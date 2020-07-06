@@ -52,13 +52,13 @@ $j(document).ready(function(){
 					Writer
 					</td>
 					<td>
-					${sessionScope.userName}
+					${board.creator}
 					</td>
 				</tr>
 				<tr>
 				<td align="center" colspan="2" style="clear:both; border:none">
 					<button style="float:left"  onclick="location.href='/board/boardList.do'" type="button">목록</button>
-					<button style="float:right"  onclick="'/board/'+${boardType}+'/'+${boardNum}+'/boardView.do?pageNo='+${pageNo}" type="button">취소</button>
+					<button style="float:right"  onclick="location.href='/board/'+${boardType}+'/'+${boardNum}+'/boardView.do?pageNo='+${pageNo}" type="button">취소</button>
 					<input type="submit" value="수정" style="float:right;"/>
 				</td>
 				</tr>
