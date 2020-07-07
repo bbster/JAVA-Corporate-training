@@ -123,7 +123,6 @@
 		SET
 			BOARD_TITLE 	= #{boardTitle}
 			,BOARD_COMMENT	= #{boardComment}
-			,MODIFIER       = #{modifier}
        		,MODIFIED_TIME  = TO_CHAR(SYSDATE)
        		
     	WHERE 	BOARD_TYPE = #{boardType}

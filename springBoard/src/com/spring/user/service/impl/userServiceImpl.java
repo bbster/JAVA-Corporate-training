@@ -55,6 +55,8 @@ public class userServiceImpl implements userService{
 	
 	@Override
 	public void userLogout(HttpSession session) throws Exception{
+		session.setAttribute("userId", null);
+		session.setAttribute("userName", null);
 		session.invalidate();
 	}
 	

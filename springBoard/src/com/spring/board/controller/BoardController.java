@@ -164,12 +164,6 @@ public class BoardController {
 			,@PathVariable("boardType")String boardType
 			,@PathVariable("boardNum")int boardNum
 			,HttpSession session ,RedirectAttributes redirectAttributes) throws Exception{
-		
-		System.out.println(session.getAttribute("userName"));
-		String boardModifier = (String)session.getAttribute("userName");
-		System.out.println("UserName DATA : " + boardModifier);
-		boardVo.setModifier(boardModifier);
-		System.out.println("boardVo getModifier " + boardVo.getModifier());
 
 		boardVo = boardService.selectBoard(boardType,boardNum);
 		model.addAttribute("boardType", boardType);

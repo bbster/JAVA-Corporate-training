@@ -302,7 +302,7 @@ $j(document).ready(function(){
 				&& $j('#userPw').val().toString().length > 4 && $j('#userPw').val().toString().length < 21){
 			if($j('#userPwCheck').val().toString().length > 5 && $j('#userPwCheck').val().toString().length < 13
 					&& $j('#userPwCheck').val() == $j('#userPw').val()){
-				if($j('#userName').val().toString().length > 3 && $j('#userName').val().toString().length < 6){
+				if($j('#userName').val().toString().length > 2 && $j('#userName').val().toString().length < 6){
 					if($j('#userPhone2').val().toString().length == 4 && $j('#userPhone3').val().toString().length == 4){
 						if($j('#userAddr1').val().toString().length == 7){
 							$j.ajax({
